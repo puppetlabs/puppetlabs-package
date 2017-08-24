@@ -1,0 +1,16 @@
+{
+  "summary": "Inspect the installation status of packages",
+  "supportsNoop": true,
+  "inputFormat": "stdin:json",
+  "parameters": {
+    "name": {
+      "description": "The name of the package to inspect",
+      "type": "string"
+    },
+    "provider": {
+      "description": "The provider to use to inspect the package, defaults to the system package manager",
+      "type": "string"
+    }
+  },
+  "requiredParameters": ["name"]
+}
