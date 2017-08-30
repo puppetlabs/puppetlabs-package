@@ -10,6 +10,10 @@ install_module_dependencies_on(hosts)
 
 UNSUPPORTED_PLATFORMS = ['Windows', 'Solaris', 'AIX']
 
+def run_task(task_name:, args: nil)
+  on(default, "bolt run /etc/puppetlabs/code/modules/package/tasks/#{task_name} --nodes localhost --password vagrant", { :acceptable_exit_codes => [0,1] }).stdout
+end
+
 RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
