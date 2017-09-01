@@ -5,11 +5,11 @@
   "parameters": {
     "name": {
       "description": "The name of the package to inspect",
-      "type": "string"
+      "type": "String"
     },
     "provider": {
       "description": "The provider to use to inspect the package, defaults to the system package manager",
-      "type": "string"
+      "type": "Optional[String]"
     }
   },
   "requiredParameters": ["name"]
