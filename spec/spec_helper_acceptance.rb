@@ -13,22 +13,21 @@ UNSUPPORTED_PLATFORMS = ['Windows', 'Solaris', 'AIX']
 DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
                      'vagrant'
                    elsif master[:hypervisor] == 'vcloud'
-                     '~!@#$%^*-/ aZ'
+                     'Qu@lity!'
                    end
 
-def run_puppet_access_login(user:, password: DEFAULT_PASSWORD, lifetime: "5y")
-  # FIXME: read user/password on stdin
-  on(master, puppet('access', 'login', user, password, '--lifetime', lifetime))
+def run_puppet_access_login(user:, password: '~!@#$%^*-/ aZ', lifetime: '5y')
+  on(master, puppet('access', 'login', '--username', user, '--lifetime', lifetime), :stdin => password)
 end
 
 def run_bolt_task(module_name:, task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "bolt run /etc/puppetlabs/code/environments/production/modules/#{module_name}/tasks/#{task_name} --nodes localhost --password #{password}", acceptable_exit_codes: [0, 1]).stdout
+  on(master, "/opt/puppetlabs/puppet/bin/bolt run /etc/puppetlabs/code/environments/production/modules/#{module_name}/tasks/#{task_name} --nodes localhost --password '#{password}'", acceptable_exit_codes: [0, 1]).stdout
 end
 
 def run_puppet_task(task_name:, params: nil)
-  # FIXME: adreyer says "I thought the not passing environment bug was fixed" so --environment may not be needed
-  # FIXME: check how apply_manifest() does temp files for the params file
-  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--environment', 'production', '--params-file', tempfile), acceptable_exit_codes: [0, 1]).stdout
+  file_path = master.tmpfile('task_params.json')
+  create_remote_file(master, file_path, params.to_json)
+  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--params-file', file_path), acceptable_exit_codes: [0, 1]).stdout
 end
 
 RSpec.configure do |c|
@@ -37,9 +36,6 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
-    # fix the path
-    on(master, "echo PATH=\"$PATH:/opt/puppetlabs/puppet/bin\"  >> /etc/bash.bashrc")
-
     scp_to(master, "bolt-0.0.6.gem", '/tmp')
     pp = <<-EOS
     package { 'net-netconf' :
@@ -51,7 +47,7 @@ RSpec.configure do |c|
     create_remote_file(hosts, '/tmp/gems.pp', pp)
     on(hosts, puppet('apply', '/tmp/gems.pp'), acceptable_exit_codes: [0, 1])
 
-    run_puppet_access_login(user: 'admin', password: '~!@#$%^*-/ aZ')
+    run_puppet_access_login(user: 'admin')
     # FIXME: adreyer says "it only supports [code/environments/production/modules] orch is reading it directly and has no access to modulepath"
     on(master, 'mv /etc/puppetlabs/code/modules/package /etc/puppetlabs/code/environments/production/modules')
   end
