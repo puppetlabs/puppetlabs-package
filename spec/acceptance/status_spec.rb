@@ -1,4 +1,6 @@
 # run a test task
+# executed with:
+# BEAKER_destroy=no PUPPET_INSTALL_TYPE=pe BEAKER_PE_DIR=http://enterprise.delivery.puppetlabs.net/2017.3/ci-ready  BEAKER_PE_VER=2017.3.0-rc8-41-g4981bd3 BEAKER_set=centos7-pooler  bundle exec rspec spec/acceptance
 require 'spec_helper_acceptance'
 
 describe 'package task' do
@@ -16,13 +18,14 @@ describe 'package task' do
       apply_manifest(pp, catch_failures: true)
     end
 
-    it 'applies a second time without changes', :skip_pup_5016 do
+    it 'applies a second time without changes' do
       apply_manifest(pp, catch_changes: true)
     end
   end
-  describe 'init task' do
+
+  describe 'try_me task' do
     it 'runs with bolt' do
-      result = run_bolt_task(module_name: 'package', task_name: 'init')
+      result = run_bolt_task(module_name: 'package', task_name: 'try_me')
       expect(result).to match(/declare -x OLDPWD/)
       # example cli 
       # bolt run /etc/puppetlabs/code/modules/package/tasks/init --nodes localhost --password vagrant
@@ -33,19 +36,20 @@ describe 'package task' do
       # then hit <enter>
       # then <CTRL> + d
     end
-    it 'runs with puppet task' do
-      result = run_puppet_task(task_name: 'package')
-      expect(result).to match(/declare -x OLDPWD/)
-    end
   end
+
+  # basically puppet task run package  --nodes fdsvtncz1jg98t9.delivery.puppetlabs.net --params-file bla.json
+  # example params-file bla.json
+  #{
+  #  "action":  "install",
+  #  "package": "emacs"
+  #}
   describe 'package::status task' do
-    it 'runs with bolt' do
-      result = run_bolt_task(module_name: 'package', task_name: 'status', params: { 'name' => 'vim' })
-      expect(result).to match(/declare -x OLDPWD/)
-    end
     it 'runs with puppet task' do
-      result = run_puppet_task(task_name: 'package::status', params: { 'name' => 'vim' })
-      expect(result).to match(/declare -x OLDPWD/)
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'install', 'package' => 'emacs' })
+      expect(result).to match(/status : installed/)
+      expect(result).to match(/installed/)
+      expect(result).to match(/Job completed. 1\/1 nodes succeeded/)
     end
   end
 end

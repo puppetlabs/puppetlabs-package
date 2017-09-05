@@ -1,5 +1,62 @@
-#!/usr/bin/env ruby
-
+#!/opt/puppetlabs/puppet/bin/ruby
+require 'puppet'
 require 'json'
-puts({message: ENV['PT_message']}.to_json)
-exit 0
+
+def install(provider)
+  if [:absent, :purged].include?(provider.properties[:ensure])
+    provider.install
+    provider.flush
+    {status: 'installed', version: provider.properties[:ensure]}
+  else
+    {status: 'present', version: provider.properties[:ensure]}
+  end
+end
+
+def status(provider)
+  version = provider.properties[:ensure]
+  latest = provider.latest
+  if [:absent, :purged].include?(version)
+    {status: 'absent', latest: latest}
+  else
+    if version != latest
+      {status: 'out of date', version: version, latest: latest}
+    else
+      {status: 'up to date', version: version}
+    end
+  end
+end
+
+def uninstall(provider)
+  if [:absent, :purged].include?(provider.properties[:ensure])
+    {status: 'absent'}
+  else
+    provider.uninstall
+    provider.flush
+    {status: 'uninstalled'}
+  end
+end
+
+def upgrade(provider)
+  provider.update
+  provider.flush
+  {version: provider.properties[:ensure]}
+end
+
+args = JSON.parse(STDIN.read)
+package = args['package']
+provider = args['provider']
+action = args['action']
+
+opts = {:name => package}
+opts[:provider] = provider if provider
+
+begin
+  provider = Puppet::Type.type(:package).new(opts).provider
+
+  result = send(action, provider)
+  puts result.to_json
+  exit 0
+rescue Puppet::Error => e
+  puts({status: 'failure', error: e.message}.to_json)
+  exit 1
+end
