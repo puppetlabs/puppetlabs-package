@@ -62,9 +62,35 @@ Users need a complete list of your module's classes, types, defined types provid
 
 This is where you list OS compatibility, version compatibility, etc. If there are Known Issues, you might want to include them under their own heading here.
 
-## Development
+## Development - Running the module
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+Here is a quick how to get up and running 
+```
+git clone git@github.com:puppetlabs/package.git
+```
+```
+bundle install --path .bundle/gems/
+```
+```
+BEAKER_destroy=no PUPPET_INSTALL_TYPE=pe BEAKER_PE_DIR=http://enterprise.delivery.puppetlabs.net/2017.3/ci-ready  BEAKER_PE_VER=2017.3.0-rc8-41-g4981bd3 BEAKER_set=centos7-pooler  bundle exec rspec spec/acceptance
+```
+
+This will spit out a vmpooler machine name you can ssh to
+
+```
+ssh -i ~/.ssh/id_rsa-acceptance root@<VMPOOLER HOSTNAME FROM ABOVE> 
+```
+
+```
+echo "{ 'action' => 'install', 'package' => 'emacs' }" >> task.json
+```
+
+```
+puppet task run package  --nodes fdsvtncz1jg98t9.delivery.puppetlabs.net --params-file task.json
+```
+
+This will install emacs onto the vmpooler machine.
+You can try other commands at your lesiure, other functionality for package is documented here
 
 ## Release Notes/Contributors/Etc. **Optional**
 
