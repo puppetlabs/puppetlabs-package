@@ -30,6 +30,12 @@ def run_puppet_task(task_name:, params: nil)
   on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--params-file', file_path), acceptable_exit_codes: [0, 1]).stdout
 end
 
+shared_examples 'applies cleanly' do |pp|
+  it 'with no errors' do
+    apply_manifest(pp, catch_failures: true)
+  end
+end
+
 RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
