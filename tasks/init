@@ -17,12 +17,10 @@ def status(provider)
   latest = provider.latest
   if [:absent, :purged].include?(version)
     { status: 'absent', latest: latest }
+  elsif version != latest
+    { status: 'out of date', version: version, latest: latest }
   else
-    if version != latest
-      { status: 'out of date', version: version, latest: latest }
-    else
-      { status: 'up to date', version: version }
-    end
+    { status: 'up to date', version: version }
   end
 end
 
