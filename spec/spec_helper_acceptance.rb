@@ -4,11 +4,11 @@ require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
 run_puppet_install_helper
-install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ /pe/i
+install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
 install_module_on(hosts)
 install_module_dependencies_on(hosts)
 
-UNSUPPORTED_PLATFORMS = ['Windows', 'Solaris', 'AIX']
+UNSUPPORTED_PLATFORMS = %w[Windows Solaris AIX].freeze
 
 DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
                      'vagrant'
@@ -17,11 +17,11 @@ DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
                    end
 
 def run_puppet_access_login(user:, password: '~!@#$%^*-/ aZ', lifetime: '5y')
-  on(master, puppet('access', 'login', '--username', user, '--lifetime', lifetime), :stdin => password)
+  on(master, puppet('access', 'login', '--username', user, '--lifetime', lifetime), stdin: password)
 end
 
 def run_bolt_task(module_name:, task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "/opt/puppetlabs/puppet/bin/bolt run /etc/puppetlabs/code/environments/production/modules/#{module_name}/tasks/#{task_name} --nodes localhost --password '#{password}'", acceptable_exit_codes: [0, 1]).stdout
+  on(master, "/opt/puppetlabs/puppet/bin/bolt run /etc/puppetlabs/code/environments/production/modules/#{module_name}/tasks/#{task_name} --nodes localhost --password '#{password}'", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
 end
 
 def run_puppet_task(task_name:, params: nil)
@@ -30,8 +30,8 @@ def run_puppet_task(task_name:, params: nil)
   on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--params-file', file_path), acceptable_exit_codes: [0, 1]).stdout
 end
 
-shared_examples 'applies cleanly' do |pp|
-  it 'with no errors' do
+shared_examples 'applies cleanly' do
+  it 'applies with no errors' do
     apply_manifest(pp, catch_failures: true)
   end
 end
@@ -42,7 +42,7 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
-    scp_to(master, "bolt-0.0.6.gem", '/tmp')
+    scp_to(master, 'bolt-0.0.6.gem', '/tmp')
     pp = <<-EOS
     package { 'net-netconf' :
       provider => 'puppet_gem',
