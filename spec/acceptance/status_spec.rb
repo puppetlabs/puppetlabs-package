@@ -4,22 +4,66 @@
 require 'spec_helper_acceptance'
 
 describe 'package task' do
-  describe 'install vim, via package' do
-    let(:pp) do
-      <<-EOS
-        package { 'vim':
-          name => 'vim',
-          ensure => latest
+  describe 'install' do
+    it 'installs' do
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'install', 'package' => 'tmux' })
+      expect(result).to match(%r{status : installed})
+      expect(result).to match(%r{version : 1.\d})
+      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+    end
+  end
+  describe 'uninstall' do
+    it_behaves_like 'applies cleanly', <<-EOS
+      package { 'tmux':
+        ensure => 'present',
+      }
+    EOS
+    it 'uninstalls' do
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'uninstall', 'package' => 'tmux' })
+      expect(result).to match(%r{status : uninstalled})
+      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+    end
+  end
+  describe 'status' do
+    context 'when package is present' do
+      it_behaves_like 'applies cleanly', <<-EOS
+        package { 'tmux':
+          ensure => 'present',
         }
       EOS
+      it 'returns the version' do
+        result = run_puppet_task(task_name: 'package', params: { 'action' => 'status', 'package' => 'tmux' })
+        expect(result).to match(%r{status : installed})
+        expect(result).to match(%r{version : 1.\d})
+        expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+      end
     end
-
-    it 'applies with no errors' do
-      apply_manifest(pp, catch_failures: true)
+    context 'when package is absent' do
+      it_behaves_like 'applies cleanly', <<-EOS
+        package { 'tmux':
+          ensure => 'absent',
+        }
+      EOS
+      it 'returns nothing' do
+        result = run_puppet_task(task_name: 'package', params: { 'action' => 'status', 'package' => 'tmux' })
+        expect(result).to match(%r{status : absent})
+        expect(result).to_not match(%r{version : 1.\d})
+        expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+        expect(result).to match(%r{aoeu})
+      end
     end
-
-    it 'applies a second time without changes' do
-      apply_manifest(pp, catch_changes: true)
+  end
+  describe 'upgrade' do
+    it_behaves_like 'applies cleanly', <<-EOS
+      package { 'tmux':
+        ensure => '1.7',
+      }
+    EOS
+    it 'upgrades' do
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'tmux' })
+      expect(result).to match(%r{version : 1.\d})
+      expect(result).to match(%r{status : up to date})
+      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
     end
   end
 
@@ -35,21 +79,6 @@ describe 'package task' do
       # { "name": "vim" }
       # then hit <enter>
       # then <CTRL> + d
-    end
-  end
-
-  # basically puppet task run package  --nodes fdsvtncz1jg98t9.delivery.puppetlabs.net --params-file bla.json
-  # example params-file bla.json
-  #{
-  #  "action":  "install",
-  #  "package": "emacs"
-  #}
-  describe 'package::status task' do
-    it 'runs with puppet task' do
-      result = run_puppet_task(task_name: 'package', params: { 'action' => 'install', 'package' => 'emacs' })
-      expect(result).to match(/status : installed/)
-      expect(result).to match(/installed/)
-      expect(result).to match(/Job completed. 1\/1 nodes succeeded/)
     end
   end
 end
