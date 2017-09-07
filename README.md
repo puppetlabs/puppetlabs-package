@@ -81,16 +81,20 @@ This will spit out a vmpooler machine name you can ssh to
 ssh -i ~/.ssh/id_rsa-acceptance root@<VMPOOLER HOSTNAME FROM ABOVE> 
 ```
 
+show the status of the openssl package (use the actual name of your node)
 ```
-echo "{ 'action' => 'install', 'package' => 'emacs' }" >> task.json
-```
-
-```
-puppet task run package  --nodes fdsvtncz1jg98t9.delivery.puppetlabs.net --params-file task.json
+puppet task run package --nodes cgx1boldbmbi3vn.delivery.puppetlabs.net action=status package=openssl
 ```
 
-This will install emacs onto the vmpooler machine.
-You can try other commands at your lesiure, other functionality for package is documented here
+display help for package
+```
+puppet task show package
+```
+
+show help for the task cli
+```
+puppet task run --help
+```
 
 ## Release Notes/Contributors/Etc. **Optional**
 
