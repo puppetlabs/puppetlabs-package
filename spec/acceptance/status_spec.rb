@@ -25,15 +25,14 @@ describe 'package task' do
       expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
     end
   end
-  describe 'upgrade' do
+  describe 'upgrade', if: fact('osfamily') == 'RedHat' do
     before(:all) do
-      apply_manifest('package { "tmux": ensure => absent, }')
-      apply_manifest('package { "tmux": ensure => "1.7", }')
+      apply_manifest('package { "vim-minimal": ensure => "2:7.4.160-1.el7", }')
     end
 
     it 'upgrades' do
-      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'tmux' })
-      expect(result).to match(%r{version : 1.8})
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'vim-minimal' })
+      expect(result).to match(%r{version : 2:7.4.160-1.el7_3.1})
       expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
     end
   end
