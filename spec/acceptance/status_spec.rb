@@ -23,13 +23,14 @@ describe 'package task' do
     end
   end
   describe 'upgrade', if: fact('osfamily') == 'RedHat' do
-    before(:all) do
-      apply_manifest('package { "vim-minimal": ensure => "2:7.4.160-1.el7", }')
+    it 'upgrade httpd using pe to a specific version' do
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'httpd', 'version' => '2.4.6-45.el7.centos' })
+      expect_multiple_regexes(result: result, regexes: [%r{version : 2.4.6-45.el7.centos}, %r{Job completed. 1/1 nodes succeeded}])
     end
 
-    it 'upgrades vim using pe' do
-      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'vim-minimal' })
-      expect_multiple_regexes(result: result, regexes: [%r{version : 2:7.4.160-1.el7_3.1}, %r{old_version : 2:7.4.160-1.el7}, %r{Job completed. 1/1 nodes succeeded}])
+    it 'upgrade httpd using pe' do
+      result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'httpd' })
+      expect_multiple_regexes(result: result, regexes: [%r{version : 2.4.6-45.el7.centos.4}, %r{old_version : 2.4.6-45.el7.centos}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'status' do
