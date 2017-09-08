@@ -29,7 +29,7 @@ describe 'package task' do
 
     it 'upgrades vim using pe' do
       result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'vim-minimal' })
-      expect_multiple_regexes(result: result, regexes: [%r{version : 2:7.4.160-1.el7_3.1}, %r{Job completed. 1/1 nodes succeeded}])
+      expect_multiple_regexes(result: result, regexes: [%r{version : 2:7.4.160-1.el7_3.1}, %r{old_version : 2:7.4.160-1.el7}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'status' do
