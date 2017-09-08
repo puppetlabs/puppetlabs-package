@@ -35,9 +35,10 @@ def uninstall(provider)
 end
 
 def upgrade(provider)
+  old_version = provider.properties[:ensure]
   provider.update
   provider.flush
-  { version: provider.properties[:ensure] }
+  { old_version: old_version, version: provider.properties[:ensure] }
 end
 
 args = JSON.parse(STDIN.read)
