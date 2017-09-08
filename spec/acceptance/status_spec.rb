@@ -7,11 +7,9 @@ describe 'package task' do
       apply_manifest('package { "tmux": ensure => absent, }')
     end
 
-    it 'installs' do
+    it 'installs tmux using pe' do
       result = run_puppet_task(task_name: 'package', params: { 'action' => 'install', 'package' => 'tmux' })
-      expect(result).to match(%r{status : installed})
-      expect(result).to match(%r{version : 1.\d})
-      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : 1.\d}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'uninstall' do
@@ -19,10 +17,9 @@ describe 'package task' do
       apply_manifest('package { "tmux": ensure => "present", }')
     end
 
-    it 'uninstalls' do
+    it 'uninstalls tmux using pe' do
       result = run_puppet_task(task_name: 'package', params: { 'action' => 'uninstall', 'package' => 'tmux' })
-      expect(result).to match(%r{status : uninstalled})
-      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+      expect_multiple_regexes(result: result, regexes: [%r{status : uninstalled}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'upgrade', if: fact('osfamily') == 'RedHat' do
@@ -30,10 +27,9 @@ describe 'package task' do
       apply_manifest('package { "vim-minimal": ensure => "2:7.4.160-1.el7", }')
     end
 
-    it 'upgrades' do
+    it 'upgrades vim using pe' do
       result = run_puppet_task(task_name: 'package', params: { 'action' => 'upgrade', 'package' => 'vim-minimal' })
-      expect(result).to match(%r{version : 2:7.4.160-1.el7_3.1})
-      expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+      expect_multiple_regexes(result: result, regexes: [%r{version : 2:7.4.160-1.el7_3.1}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'status' do
@@ -42,10 +38,9 @@ describe 'package task' do
         apply_manifest('package { "tmux": ensure => "present", }')
       end
 
-      it 'returns the version' do
+      it 'returns the version of tmux using pe' do
         result = run_puppet_task(task_name: 'package', params: { 'action' => 'status', 'package' => 'tmux' })
-        expect(result).to match(%r{status : up to date})
-        expect(result).to match(%r{Job completed. 1/1 nodes succeeded})
+        expect_multiple_regexes(result: result, regexes: [%r{status : up to date}, %r{Job completed. 1/1 nodes succeeded}])
       end
     end
     context 'when package is absent' do
@@ -53,10 +48,9 @@ describe 'package task' do
         apply_manifest('package { "tmux": ensure => "absent", }')
       end
 
-      it 'returns nothing' do
+      it 'returns nothing using pe' do
         result = run_puppet_task(task_name: 'package', params: { 'action' => 'status', 'package' => 'doesntexist' })
-        expect(result).to match(%r{error : Tried to get latest on a missing package})
-        expect(result).to match(%r{status : failure})
+        expect_multiple_regexes(result: result, regexes: [%r{status : failure}, %r{error : Tried to get latest on a missing package}])
       end
     end
   end
