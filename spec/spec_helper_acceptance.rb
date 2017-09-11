@@ -27,7 +27,7 @@ end
 def run_puppet_task(task_name:, params: nil)
   file_path = master.tmpfile('task_params.json')
   create_remote_file(master, file_path, params.to_json)
-  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--params-file', file_path), acceptable_exit_codes: [0, 1]).stdout
+  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), '--params', "@#{file_path}"), acceptable_exit_codes: [0, 1]).stdout
 end
 
 def expect_multiple_regexes(result:, regexes:)
