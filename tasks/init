@@ -2,7 +2,7 @@
 require 'puppet'
 require 'json'
 
-def install(provider)
+def install(provider, _version)
   if [:absent, :purged].include?(provider.properties[:ensure])
     provider.install
     provider.flush
@@ -12,7 +12,7 @@ def install(provider)
   end
 end
 
-def status(provider)
+def status(provider, _version)
   version = provider.properties[:ensure]
   latest = provider.latest
   if [:absent, :purged].include?(version)
@@ -24,7 +24,7 @@ def status(provider)
   end
 end
 
-def uninstall(provider)
+def uninstall(provider, _version)
   if [:absent, :purged].include?(provider.properties[:ensure])
     { status: 'absent' }
   else
@@ -34,8 +34,9 @@ def uninstall(provider)
   end
 end
 
-def upgrade(provider)
+def upgrade(provider, version)
   old_version = provider.properties[:ensure]
+  provider.resource[:ensure] = version unless version.nil?
   provider.update
   provider.flush
   { old_version: old_version, version: provider.properties[:ensure] }
@@ -45,6 +46,7 @@ args = JSON.parse(STDIN.read)
 package = args['package']
 provider = args['provider']
 action = args['action']
+version = args['version']
 
 opts = { name: package }
 opts[:provider] = provider if provider
@@ -52,7 +54,7 @@ opts[:provider] = provider if provider
 begin
   provider = Puppet::Type.type(:package).new(opts).provider
 
-  result = send(action, provider)
+  result = send(action, provider, version)
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
