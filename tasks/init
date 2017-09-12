@@ -1,6 +1,51 @@
 #!/opt/puppetlabs/puppet/bin/ruby
+
 require 'puppet'
-require 'json'
+require 'puppet/face'
+
+
+def conflict_error(resource)
+  { kind: 'puppetlabs.package/resource-conflict',
+    msg: "Action may conflict with a puppet managed resource '#{resource.ref}'. Run with override to ignore",
+    details: { resource: resource.ref }
+  }
+end
+
+# This approach will allow us to do more complex checks for conflict.
+# For example an upgrade doesn't actually  conflict with ensure = present
+# That may be too complex for v1
+def check_catalog(resource, action)
+  Puppet::Resource::Catalog.indirection.terminus_class = :json
+  Puppet.initialize_settings
+
+  catalog = Puppet::Face[:catalog, '0.0.1'].find(Puppet[:certname])
+
+  if catalog_resource = catalog.resources.find { |r| r.ref == resource.ref }
+
+    ens = catalog_resource.parameters[:ensure]
+    if ['latest', 'present'].include?(ens) && ['install', 'upgrade'].include?(action)
+      return
+    end
+    if ens == 'absent' && action == 'uninstall'
+      return
+    end
+
+    return conflict_error(resource)
+  end
+end
+
+
+def check_report(resource)
+  Puppet.initialize_settings
+  glob = File.join(Puppet[:reportdir], Puppet[:certname], '*.yaml')
+
+  report_path = Dir.glob(glob).max_by {|f| File.mtime(f)}
+  report = File.open(report_path) {|f| YAML.load(f.read())}
+  if report.resource_statuses.include?(resource.ref)
+    conflict_error(resource)
+  end
+end
+
 
 def install(provider, _version)
   if [:absent, :purged].include?(provider.properties[:ensure])
@@ -42,22 +87,31 @@ def upgrade(provider, version)
   { old_version: old_version, version: provider.properties[:ensure] }
 end
 
-args = JSON.parse(STDIN.read)
-package = args['package']
-provider = args['provider']
-action = args['action']
-version = args['version']
+params = JSON.parse(STDIN.read)
+package = params['package']
+provider = params['provider']
+action = params['action']
+version = params['version']
+override = params['override']
 
 opts = { name: package }
 opts[:provider] = provider if provider
 
 begin
-  provider = Puppet::Type.type(:package).new(opts).provider
+  resource = Puppet::Type.type(:package).new(opts)
+  provider = resource.provider
+
+  unless override or action == 'status'
+    if error = check_report(resource)
+      puts error.to_json
+      exit 2
+    end
+  end
 
   result = send(action, provider, version)
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
-  puts({ status: 'failure', error: e.message }.to_json)
+  puts({ status: 'failure', _error: {kind: 'puppet.error', msg: e.message }}.to_json)
   exit 1
 end
