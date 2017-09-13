@@ -13,51 +13,85 @@
 
 ## Description
 
-This module provides the package task. This task allows you to execute various actions against packages, such as installing or [TODO: ??? Does it just install? What else can you do with it?
+This module provides the package task. This task allows you to install, uninstall, update, and check the status of packages.
 
-For example, you can use the package task to install vim with the apt package provider. Tasks require either Puppet Enteprise 2017.3 or the `bolt` task runner.
+This module requires either Puppet Enteprise 2017.3 or the `bolt` task runner. [TODO: as I understand it, this module does not currently work with bolt and depends on Puppet 5 to be installed. We will modify this text when that is resolved.]
 
 ## Setup
 
-### Setup requirements
+[TODO: is there any setup beyond "install the module"?]
 
-This module requires either Puppet Enteprise 2017.3 or the `bolt` task runner.
+### Requirements
+
+This module requires either the `bolt` task runner or Puppet Enteprise 2017.3 or later to be installed on the machine from which you are running task commands (the controller node).
 
 ## Usage
 
-There are a number of ways to execute the package task. [TODO: what ways?]
+To run a package task, use the task command, specifying the action and the name of the package.
 
-The examples below check the status of the vim package. [TODO: when you say "status," you just mean present or absent, yes?]
+### Puppet Enterprise
 
-On the PE console, TODO: DO A THING [TODO: LINK]
+With Puppet Enterprise, on the command line, run `puppet task package <ACTION> <PACKAGE_NAME>.
 
-With PE on the command line TODO: MORE INFO HERE EEP TODO: LINK
+For example, to check whether the vim package is present or absent, run `puppet task package status vim`
 
-```bash
-puppet task package status vim
-```
+You can also run tasks in the PE console. See [Running tasks in PE](TODO: LINK) for complete information.
 
-With the standalone `bolt` task runner [TODO: LINK], on the command line [TODO: Do they need to be in a certain directory for this, like a tasks dir or anything?], run:
+### Puppet task runner
 
-```bash
-bolt task package status vim
-```
+With the standalone task runner `bolt`, run `bolt task package <ACTION> <PACKAGE_NAME>.
+
+For example, to check whether the vim package is present or absent, run `bolt task package status vim`
+
+For detailed task runner information, see the [`bolt` task runner documentation](TODO LINK).
 
 ## Reference
 
-[TODO: we actually need to list these here]
+### Parameters
 
-To get the available actions and parameters, run:
+[TODO: I might change these to a table instead]
 
-``` bash
-puppet task show package
-```
+#### action
 
-or go to https://forge.puppet.com/puppetlabs/package/tasks [TODO: Jean to remove this, as it basically points to itself on the Forge. I want it for reference now though.]
+**Required**.
+
+The operation (install, status, uninstall and upgrade) to perform on the package.
+
+Data type: "Enum[install, status, uninstall, upgrade]
+
+#### package
+
+**Required**.
+
+The name of the package to be manipulated.
+
+Data type: String[1]
+
+#### version
+
+**Optional**.
+
+Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider.
+
+For example, to install the bash package from the `rpm bash-4.1.2-29.el6.x86_64.rpm`, use the string '4.1.2-29.el6'."
+
+Data type: Optional[String[1]]
+
+#### provider
+
+**Optional**.
+
+The provider to use to manage or inspect the package.
+
+Data type: Optional[String[1]]
+
+Defaults to the system package manager.
 
 For a complete list of optional package providers that are supported, see the [Puppet Types](https://docs.puppet.com/puppet/latest/types/package.html) documentation.
 
-## Development
+## Development 
+
+[TODO: this section is for internal Puppet users and will be deleted before module release.]
 
 Here is a quick how to get up and running 
 
@@ -73,7 +107,7 @@ git clone git@github.com:puppetlabs/package.git
 bundle install --path .bundle/gems/
 ```
 
-3. Do some Beaker stuff [TODO: if this is going to be public-facing, we need to describe whatever is going on here briefly; if this bit is internal to us only, then it's fine.]
+3. Get a VMPooler machine from Beaker.
 
 ```
 BEAKER_destroy=no PUPPET_INSTALL_TYPE=pe BEAKER_PE_DIR=http://enterprise.delivery.puppetlabs.net/2017.3/ci-ready  BEAKER_PE_VER=2017.3.0-rc8-41-g4981bd3 BEAKER_set=centos7-pooler  bundle exec rspec spec/acceptance
@@ -91,7 +125,7 @@ ssh -i ~/.ssh/id_rsa-acceptance root@<VMPOOLER HOSTNAME FROM ABOVE>
 puppet task run package --nodes cgx1boldbmbi3vn.delivery.puppetlabs.net action=status package=openssl
 ```
 
-## Help
+## Getting help
 
 To display help for the package task, run:
 
