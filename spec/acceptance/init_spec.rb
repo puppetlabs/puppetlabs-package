@@ -16,6 +16,23 @@ describe 'package task' do
       expect_multiple_regexes(result: result, regexes: [%r{status : up to date}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
+  describe 'install using bolt' do
+    before(:all) do
+      apply_manifest('package { "tmux": ensure => absent, }')
+    end
+
+    it 'installs tmux using bolt' do
+      pending 'bolt does not accept params yet'
+      result = run_bolt_task(task_name: 'package', params: { 'action' => 'install', 'package' => 'tmux' })
+      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : 1.\d}, %r{Job completed. 1/1 nodes succeeded}])
+    end
+    it 'returns the version of tmux using bolt' do
+      pending 'bolt does not accept params yet'
+      result = run_bolt_task(task_name: 'package', params: { 'action' => 'status', 'package' => 'tmux' })
+      expect_multiple_regexes(result: result, regexes: [%r{status : up to date}, %r{Job completed. 1/1 nodes succeeded}])
+    end
+  end
+
   describe 'uninstall' do
     before(:all) do
       apply_manifest('package { "tmux": ensure => "present", }')

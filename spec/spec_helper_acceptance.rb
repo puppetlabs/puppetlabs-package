@@ -20,8 +20,8 @@ def run_puppet_access_login(user:, password: '~!@#$%^*-/ aZ', lifetime: '5y')
   on(master, puppet('access', 'login', '--username', user, '--lifetime', lifetime), stdin: password)
 end
 
-def run_bolt_task(module_name:, task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "/opt/puppetlabs/puppet/bin/bolt run /etc/puppetlabs/code/environments/production/modules/#{module_name}/tasks/#{task_name} --nodes localhost --password '#{password}' #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
+def run_bolt_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
+  on(master, "/opt/puppetlabs/puppet/bin/bolt run #{task_name} --modules /etc/puppetlabs/code/environments/production/modules --nodes localhost --password #{password} --params #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
 end
 
 def run_puppet_task(task_name:, params: nil)
