@@ -3,8 +3,13 @@ require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
+def install_bolt_on(hosts)
+  on(hosts, "/opt/puppetlabs/puppet/bin/gem install --source http://rubygems.delivery.puppetlabs.net bolt -v '> 0.0.1'", acceptable_exit_codes: [0, 1]).stdout
+end
+
 run_puppet_install_helper
 install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
+install_bolt_on(hosts) unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
 install_module_on(hosts)
 install_module_dependencies_on(hosts)
 
@@ -24,12 +29,16 @@ def pe_install?
   ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
 end
 
-def run_bolt_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/environments/production/modules --nodes localhost --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
+def run_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
+  if pe_install?
+    run_puppet_task(task_name: task_name, params: params)
+  else
+    run_bolt_task(task_name: task_name, params: params, password: password)
+  end
 end
 
-def install_bolt(hosts:)
-  on(hosts, "/opt/puppetlabs/puppet/bin/gem install --source http://rubygems.delivery.puppetlabs.net bolt -v '> 0.0.1'", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
+def run_bolt_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
+  on(master, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/modules/service --nodes localhost --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
 end
 
 def run_puppet_task(task_name:, params: nil)
@@ -48,9 +57,6 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
-    install_bolt(hosts: hosts)
     run_puppet_access_login(user: 'admin')
-    # FIXME: adreyer says "it only supports [code/environments/production/modules] orch is reading it directly and has no access to modulepath"
-    on(master, 'mv /etc/puppetlabs/code/modules/package /etc/puppetlabs/code/environments/production/modules')
   end
 end
