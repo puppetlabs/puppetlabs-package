@@ -8,12 +8,10 @@ def install_bolt_on(hosts)
 end
 
 run_puppet_install_helper
-install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
-install_bolt_on(hosts) unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
-install_module_on(hosts)
-install_module_dependencies_on(hosts)
-
-UNSUPPORTED_PLATFORMS = %w[Windows Solaris AIX].freeze
+install_ca_certs unless pe_install?
+install_bolt_on(hosts) unless pe_install?
+install_module_on(master)
+install_module_dependencies_on([master])
 
 DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
                      'vagrant'
@@ -38,11 +36,11 @@ def run_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
 end
 
 def run_bolt_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/modules/service --nodes localhost --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
+  on(master, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/modules/service --nodes #{fact_on(default, 'fqdn')} --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
 end
 
 def run_puppet_task(task_name:, params: nil)
-  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(master, 'fqdn'), params.to_s), acceptable_exit_codes: [0, 1]).stdout
+  on(master, puppet('task', 'run', task_name, '--nodes', fact_on(default, 'fqdn'), params.to_s), acceptable_exit_codes: [0, 1]).stdout
 end
 
 def expect_multiple_regexes(result:, regexes:)
