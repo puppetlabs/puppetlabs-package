@@ -51,42 +51,6 @@ To view the available actions and parameters, on the command line, run `puppet t
 
 For a complete list of optional package providers that are supported, see the [Puppet Types](https://docs.puppet.com/puppet/latest/types/package.html) documentation.
 
-## Development 
-
-[TODO: this section is for internal Puppet users and will be deleted before module release.]
-
-Here is a quick how to get up and running 
-
-1. Clone the package repo:
-
-```
-git clone git@github.com:puppetlabs/package.git
-```
-
-2. Install the gem dependencies:
-
-```
-bundle install --path .bundle/gems/
-```
-
-3. Get a VMPooler machine from Beaker.
-
-```
-BEAKER_destroy=no PUPPET_INSTALL_TYPE=pe BEAKER_PE_DIR=http://enterprise.delivery.puppetlabs.net/2017.3/ci-ready  BEAKER_PE_VER=2017.3.0-rc8-41-g4981bd3 BEAKER_set=centos7-pooler  bundle exec rspec spec/acceptance
-```
-
-4. SSH to the VMPooler machine output by the previous command.
-
-```
-ssh -i ~/.ssh/id_rsa-acceptance root@<VMPOOLER HOSTNAME FROM ABOVE> 
-```
-
-5. Show the status of the `openssl` package, specifying the node you want to check.
-
-```
-puppet task run package --nodes cgx1boldbmbi3vn.delivery.puppetlabs.net action=status package=openssl
-```
-
 ## Getting help
 
 To display help for the package task, run:
