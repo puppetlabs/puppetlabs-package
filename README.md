@@ -7,8 +7,7 @@
 2. [Requirements](#requirements)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+5. [Getting help - Some Helpful commands](#getting-help)
 
 ## Description
 
@@ -34,7 +33,7 @@ To view the available actions and parameters, on the command line, run `puppet t
 
 For a complete list of optional package providers that are supported, see the [Puppet Types](https://docs.puppet.com/puppet/latest/types/package.html) documentation.
 
-## Getting help
+## Getting Help
 
 To display help for the package task, run `puppet task show package`
 
