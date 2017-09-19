@@ -42,11 +42,11 @@ def upgrade(provider, version)
   { old_version: old_version, version: provider.properties[:ensure] }
 end
 
-args = JSON.parse(STDIN.read)
-package = args['package']
-provider = args['provider']
-action = args['action']
-version = args['version']
+params = JSON.parse(STDIN.read)
+package = params['package']
+provider = params['provider']
+action = params['action']
+version = params['version']
 
 opts = { name: package }
 opts[:provider] = provider if provider
