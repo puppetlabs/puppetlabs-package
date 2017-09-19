@@ -47,45 +47,7 @@ For detailed task runner information, see the [`bolt` task runner documentation]
 
 ## Reference
 
-### Parameters
-
-[TODO: I might change these to a table instead]
-
-#### action
-
-**Required**.
-
-The operation (install, status, uninstall and upgrade) to perform on the package.
-
-Data type: "Enum[install, status, uninstall, upgrade]
-
-#### package
-
-**Required**.
-
-The name of the package to be manipulated.
-
-Data type: String[1]
-
-#### version
-
-**Optional**.
-
-Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider.
-
-For example, to install the bash package from the `rpm bash-4.1.2-29.el6.x86_64.rpm`, use the string '4.1.2-29.el6'."
-
-Data type: Optional[String[1]]
-
-#### provider
-
-**Optional**.
-
-The provider to use to manage or inspect the package.
-
-Data type: Optional[String[1]]
-
-Defaults to the system package manager.
+To view the available actions and parameters, on the command line, run `puppet task show package` or see the package module page on the [Forge](https://forge.puppet.com/puppetlabs/package/tasks).
 
 For a complete list of optional package providers that are supported, see the [Puppet Types](https://docs.puppet.com/puppet/latest/types/package.html) documentation.
 
