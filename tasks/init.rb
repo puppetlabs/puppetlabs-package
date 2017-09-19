@@ -1,5 +1,7 @@
 #!/opt/puppetlabs/puppet/bin/ruby
 require 'puppet'
+# Required to find pluginsync'd plugins
+Puppet.initialize_settings
 require 'json'
 
 def install(provider, _version)
@@ -14,13 +16,17 @@ end
 
 def status(provider, _version)
   version = provider.properties[:ensure]
-  latest = provider.latest
-  if [:absent, :purged].include?(version)
-    { status: 'absent', latest: latest }
-  elsif version != latest
-    { status: 'out of date', version: version, latest: latest }
+  latest = provider.latest if provider.respond_to?(:latest)
+  if latest
+    if [:absent, :purged].include?(version)
+      { status: 'absent', latest: latest }
+    elsif version != latest
+      { status: 'out of date', version: version, latest: latest }
+    else
+      { status: 'up to date', version: version }
+    end
   else
-    { status: 'up to date', version: version }
+    { status: 'unknown', version: version }
   end
 end
 
