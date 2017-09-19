@@ -7,6 +7,10 @@ def install_bolt_on(hosts)
   on(hosts, "/opt/puppetlabs/puppet/bin/gem install --source http://rubygems.delivery.puppetlabs.net bolt -v '> 0.0.1'", acceptable_exit_codes: [0, 1]).stdout
 end
 
+def pe_install?
+  ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
+end
+
 run_puppet_install_helper
 install_ca_certs unless pe_install?
 install_bolt_on(hosts) unless pe_install?
@@ -21,10 +25,6 @@ DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
 
 def run_puppet_access_login(user:, password: '~!@#$%^*-/ aZ', lifetime: '5y')
   on(master, puppet('access', 'login', '--username', user, '--lifetime', lifetime), stdin: password)
-end
-
-def pe_install?
-  ENV['PUPPET_INSTALL_TYPE'] =~ %r{pe}i
 end
 
 def run_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
