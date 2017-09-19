@@ -11,6 +11,10 @@
       "description": "The name of the package to be manipulated",
       "type": "String[1]"
     },
+    "override": {
+      "description": "Unless this is set the package task will not change puppet managed packages",
+      "type": "Optional[Boolean]",
+    },
     "version": {
       "description": "Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider. For example, to install the bash package from the rpm bash-4.1.2-29.el6.x86_64.rpm, use the string '4.1.2-29.el6'.",
       "type": "Optional[String[1]]"
