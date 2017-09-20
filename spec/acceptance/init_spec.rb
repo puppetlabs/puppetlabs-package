@@ -4,28 +4,28 @@ require 'spec_helper_acceptance'
 describe 'package task' do
   describe 'install', if: pe_install? do
     before(:all) do
-      apply_manifest('package { "tmux": ensure => absent, }')
+      apply_manifest('package { "emacs": ensure => absent, }')
     end
-    it 'installs tmux' do
-      result = run_task(task_name: 'package', params: 'action=install package=tmux')
+    it 'installs emacs' do
+      result = run_task(task_name: 'package', params: 'action=install package=emacs')
       expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : \d.\d}, %r{Job completed. 1/1 nodes succeeded}])
     end
-    it 'returns the version of tmux' do
-      result = run_task(task_name: 'package', params: 'action=status package=tmux')
+    it 'returns the version of emacs' do
+      result = run_task(task_name: 'package', params: 'action=status package=emacs')
       expect_multiple_regexes(result: result, regexes: [%r{status : up to date}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'uninstall', if: pe_install? do
     before(:all) do
-      apply_manifest('package { "tmux": ensure => "present", }')
+      apply_manifest('package { "emacs": ensure => "present", }')
     end
 
-    it 'uninstalls tmux' do
-      result = run_task(task_name: 'package', params: 'action=uninstall package=tmux')
+    it 'uninstalls emacs' do
+      result = run_task(task_name: 'package', params: 'action=uninstall package=emacs')
       expect_multiple_regexes(result: result, regexes: [%r{status : uninstalled}, %r{Job completed. 1/1 nodes succeeded}])
     end
     it 'status' do
-      result = run_task(task_name: 'package', params: 'action=status package=tmux')
+      result = run_task(task_name: 'package', params: 'action=status package=emacs')
       expect_multiple_regexes(result: result, regexes: [%r{status : absent}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
