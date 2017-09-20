@@ -1,5 +1,5 @@
 
-# package_task
+# package
 
 #### Table of Contents
 
@@ -15,7 +15,7 @@ This module provides the package task. This task allows you to install, uninstal
 
 ## Requirements
 
-This module requires either the `bolt` task runner or Puppet Enterprise 2017.3 or later to be installed on the machine from which you are running task commands (the controller node). Machines receiving task requests must be Puppet agents.
+This module requires Puppet Enterprise 2017.3 or later to be installed on the machine from which you are running task commands (the controller node). Machines receiving task requests must be Puppet agents.
 
 ## Usage
 
