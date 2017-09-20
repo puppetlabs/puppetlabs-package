@@ -8,7 +8,7 @@ describe 'package task' do
     end
     it 'installs tmux' do
       result = run_task(task_name: 'package', params: 'action=install package=tmux')
-      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : 1.\d}, %r{Job completed. 1/1 nodes succeeded}])
+      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : \d.\d}, %r{Job completed. 1/1 nodes succeeded}])
     end
     it 'returns the version of tmux' do
       result = run_task(task_name: 'package', params: 'action=status package=tmux')
@@ -26,10 +26,10 @@ describe 'package task' do
     end
     it 'status' do
       result = run_task(task_name: 'package', params: 'action=status package=tmux')
-      expect_multiple_regexes(result: result, regexes: [%r{status : failure}, %r{error : Tried to get latest on a missing package}])
+      expect_multiple_regexes(result: result, regexes: [%r{status : absent}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
-  describe 'upgrade', if: (fact('operatingsystem') == 'CentOS' && pe_install?) do
+  describe 'upgrade', if: (fact('operatingsystem') == 'CentOS' && fact('operatingsystemmajrelease') == '7' && pe_install?) do
     it 'upgrade httpd to a specific version' do
       result = run_task(task_name: 'package', params: 'action=upgrade package=httpd version=2.4.6-45.el7.centos')
       expect_multiple_regexes(result: result, regexes: [%r{version : 2.4.6-45.el7.centos}, %r{Job completed. 1/1 nodes succeeded}])
