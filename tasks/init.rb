@@ -16,17 +16,19 @@ end
 
 def status(provider, _version)
   version = provider.properties[:ensure]
-  latest = provider.latest if provider.respond_to?(:latest)
-  if latest
-    if [:absent, :purged].include?(version)
-      { status: 'absent', latest: latest }
-    elsif version != latest
-      { status: 'out of date', version: version, latest: latest }
-    else
-      { status: 'up to date', version: version }
-    end
+  if [:absent, :purged].include?(version)
+    { status: 'absent', version: version }
   else
-    { status: 'unknown', version: version }
+    if provider.respond_to?(:latest)
+      latest = provider.latest
+      if version != latest
+        { status: 'out of date', version: version, latest: latest }
+      else
+        { status: 'up to date', version: version }
+      end
+    else
+      { status: 'unknown', version: version }
+    end
   end
 end
 
