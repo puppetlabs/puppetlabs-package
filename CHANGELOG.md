@@ -1,11 +1,7 @@
-# Changelog
+## Release 0.1.1
+This is the initial release of the package task.
 
-All notable changes to this project will be documented in this file.
-
-## Release 0.1.0
-
-**Features**
-
-**Bugfixes**
-
-**Known Issues**
+**Features
+- Provides the following actions install, status, uninstall and upgrade.
+- Upgrade allows specifying a version.
+- Provider can optionally be specified, eg gem or apt. 
