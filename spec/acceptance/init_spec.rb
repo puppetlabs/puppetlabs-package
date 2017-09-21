@@ -4,28 +4,28 @@ require 'spec_helper_acceptance'
 describe 'package task' do
   describe 'install', if: pe_install? do
     before(:all) do
-      apply_manifest('package { "emacs": ensure => absent, }')
+      apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
     end
-    it 'installs emacs' do
-      result = run_task(task_name: 'package', params: 'action=install package=emacs')
+    it 'installs pry' do
+      result = run_task(task_name: 'package', params: 'action=install package=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : \d+.\d+}, %r{Job completed. 1/1 nodes succeeded}])
     end
-    it 'returns the version of emacs' do
-      result = run_task(task_name: 'package', params: 'action=status package=emacs')
+    it 'returns the version of pry' do
+      result = run_task(task_name: 'package', params: 'action=status package=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{status : up to date}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
   describe 'uninstall', if: pe_install? do
     before(:all) do
-      apply_manifest('package { "emacs": ensure => "present", }')
+      apply_manifest('package { "pry": ensure => "present", provider => "puppet_gem", }')
     end
 
-    it 'uninstalls emacs' do
-      result = run_task(task_name: 'package', params: 'action=uninstall package=emacs')
+    it 'uninstalls pry' do
+      result = run_task(task_name: 'package', params: 'action=uninstall package=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{status : uninstalled}, %r{Job completed. 1/1 nodes succeeded}])
     end
     it 'status' do
-      result = run_task(task_name: 'package', params: 'action=status package=emacs')
+      result = run_task(task_name: 'package', params: 'action=status package=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{status : absent}, %r{Job completed. 1/1 nodes succeeded}])
     end
   end
