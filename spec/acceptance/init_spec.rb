@@ -8,7 +8,7 @@ describe 'package task' do
     end
     it 'installs emacs' do
       result = run_task(task_name: 'package', params: 'action=install package=emacs')
-      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : \d.\d}, %r{Job completed. 1/1 nodes succeeded}])
+      expect_multiple_regexes(result: result, regexes: [%r{status : installed}, %r{version : \d+.\d+}, %r{Job completed. 1/1 nodes succeeded}])
     end
     it 'returns the version of emacs' do
       result = run_task(task_name: 'package', params: 'action=status package=emacs')
