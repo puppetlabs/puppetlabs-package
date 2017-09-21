@@ -55,6 +55,6 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
-    run_puppet_access_login(user: 'admin')
+    run_puppet_access_login(user: 'admin') if pe_install?
   end
 end
