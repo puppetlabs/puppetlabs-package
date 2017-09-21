@@ -1,3 +1,10 @@
+## Release 0.1.2
+
+### Fixed
+- Handle providers that return multiple versions (gem)
+- Handle providers that don't have latest (windows)
+- Handle providers that exit 1 when absent (yum)
+
 ## Release 0.1.1
 This is the initial release of the package task.
 
