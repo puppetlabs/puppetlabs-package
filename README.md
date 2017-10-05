@@ -30,19 +30,19 @@ To run a package task, use the task command, specifying the action and the name 
 For example, to check whether the vim package is present or absent, run:
 
 * With PE, run `puppet task run package action=status package=vim --nodes neptune`.
-* With Bolt, run `puppet task run package action=status package=vim --nodes neptune --modules ~/modules`.
+* With Bolt, run `bolt task run package action=status package=vim --nodes neptune --modules ~/modules`.
 
 You can also run tasks in the PE console. See PE task documentation for complete information.
 
 ## Reference
 
-To view the available actions and parameters, on the command line, run `puppet task show package` or `bolt task show package` or see the package module page on the [Forge](https://forge.puppet.com/puppetlabs/package/tasks).
+To view the available actions and parameters, on the command line, run `puppet task show package` or see the package module page on the [Forge](https://forge.puppet.com/puppetlabs/package/tasks).
 
 For a complete list of optional package providers that are supported, see the [Puppet Types](https://docs.puppet.com/puppet/latest/types/package.html) documentation.
 
 ## Getting Help
 
-To display help for the package task, run `puppet task show package` or `bolt task show package`
+To display help for the package task, run `puppet task show package`
 
 To show help for the task CLI, run `puppet task run --help` or `bolt task run --help`
 
