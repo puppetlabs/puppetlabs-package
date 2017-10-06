@@ -8,7 +8,7 @@
       "description": "The operation (install, status, uninstall and upgrade) to perform on the package",
       "type": "Enum[install, status, uninstall, upgrade]"
     },
-    "package": {
+    "name": {
       "description": "The name of the package to be manipulated",
       "type": "String[1]"
     },

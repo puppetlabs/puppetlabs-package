@@ -14,12 +14,12 @@ end
 run_puppet_install_helper
 install_ca_certs unless pe_install?
 install_bolt_on(hosts) unless pe_install?
-install_module_on(master)
-install_module_dependencies_on([master])
+install_module_on(hosts)
+install_module_dependencies_on(hosts)
 
-DEFAULT_PASSWORD = if master[:hypervisor] == 'vagrant'
-                     'vagrant'
-                   elsif master[:hypervisor] == 'vcloud'
+DEFAULT_PASSWORD = if default[:hypervisor] == 'vagrant'
+                     'puppet'
+                   elsif default[:hypervisor] == 'vcloud'
                      'Qu@lity!'
                    end
 
@@ -36,7 +36,7 @@ def run_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
 end
 
 def run_bolt_task(task_name:, params: nil, password: DEFAULT_PASSWORD)
-  on(master, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/modules --nodes #{fact_on(default, 'fqdn')} --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
+  on(default, "/opt/puppetlabs/puppet/bin/bolt task run #{task_name} --modules /etc/puppetlabs/code/modules --nodes #{fact_on(default, 'fqdn')} --password #{password} #{params}", acceptable_exit_codes: [0, 1]).stdout # rubocop:disable Metrics/LineLength
 end
 
 def run_puppet_task(task_name:, params: nil)

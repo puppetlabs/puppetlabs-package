@@ -24,13 +24,13 @@ Puppet Bolt 0.3.2 or later has to be installed on the machine from which you are
 
 To run a package task, use the task command, specifying the action and the name of the package.
 
-* With PE on the command line, run `puppet task run package action=<ACTION> package=<PACKAGE_NAME>`.
-* With Bolt on the command line, run `bolt task run package action=<ACTION> package=<PACKAGE_NAME>`.
+* With PE on the command line, run `puppet task run package action=<ACTION> name=<PACKAGE_NAME>`.
+* With Bolt on the command line, run `bolt task run package action=<ACTION> name=<PACKAGE_NAME>`.
 
 For example, to check whether the vim package is present or absent, run:
 
-* With PE, run `puppet task run package action=status package=vim --nodes neptune`.
-* With Bolt, run `bolt task run package action=status package=vim --nodes neptune --modules ~/modules`.
+* With PE, run `puppet task run package action=status name=vim --nodes neptune`.
+* With Bolt, run `bolt task run package action=status name=vim --nodes neptune --modules ~/modules`.
 
 You can also run tasks in the PE console. See PE task documentation for complete information.
 
