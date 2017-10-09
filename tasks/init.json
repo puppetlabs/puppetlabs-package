@@ -1,7 +1,5 @@
 {
-  "summary": "Manage and inspect the state of packages",
   "description": "Manage and inspect the state of packages",
-  "supports_noop": true,
   "input_method": "stdin",
   "parameters": {
     "action": {
