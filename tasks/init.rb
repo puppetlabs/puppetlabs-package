@@ -51,12 +51,12 @@ def upgrade(provider, version)
 end
 
 params = JSON.parse(STDIN.read)
-package = params['package']
+name = params['name']
 provider = params['provider']
 action = params['action']
 version = params['version']
 
-opts = { name: package }
+opts = { name: name }
 opts[:provider] = provider if provider
 
 begin

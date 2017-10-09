@@ -2,6 +2,8 @@
 
 ### Fixed
 - Readme updates.
+- Tests work on PE and Bolt.
+- Package attribute is now name.
 
 ## Release 0.1.3
 
