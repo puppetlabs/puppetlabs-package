@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-package",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "puppet",
   "summary": "Tasks that manipulate a package",
   "description": "Tasks that manipulate a package",
