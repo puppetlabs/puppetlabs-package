@@ -30,7 +30,7 @@ To run a package task, use the task command, specifying the action and the name 
 For example, to check whether the vim package is present or absent, run:
 
 * With PE, run `puppet task run package action=status name=vim --nodes neptune`.
-* With Bolt, run `bolt task run package action=status name=vim --nodes neptune --modules ~/modules`.
+* With Bolt, run `bolt task run package action=status name=vim --nodes neptune --modulepath ~/modules`.
 
 You can also run tasks in the PE console. See PE task documentation for complete information.
 
