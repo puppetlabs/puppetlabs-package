@@ -6,11 +6,11 @@ describe 'package task' do
     before(:all) do
       apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
     end
-    it 'installs pry' do
+    it 'installs pry', unless: (fact('operatingsystem') == 'windows') do
       result = run_task(task_name: 'package', params: 'action=install name=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{installed}, %r{version.*\d+.\d+}, %r{(Job completed. 1/1 nodes succeeded|Ran on 1 node)}])
     end
-    it 'returns the version of pry' do
+    it 'returns the version of pry', unless: (fact('operatingsystem') == 'windows') do
       result = run_task(task_name: 'package', params: 'action=status name=pry provider=puppet_gem')
       expect_multiple_regexes(result: result, regexes: [%r{up to date}, %r{(Job completed. 1/1 nodes succeeded|Ran on 1 node)}])
     end
