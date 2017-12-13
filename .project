@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<projectDiscription>
-	<name>puppetlabs-package_task</name>
+<projectDescription>
+	<name>puppetlabs-package</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -18,6 +18,6 @@
 	</buildSpec>
 	<natures>
 		<nature>com.puppetlabs.geppetto.pp.dsl.ui.puppetNature</nature>
-		<nature>com.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
 </projectDescription>
