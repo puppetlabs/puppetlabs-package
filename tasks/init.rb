@@ -8,9 +8,9 @@ def install(provider, _version)
   if !([:absent, :purged] & Array(provider.properties[:ensure])).empty?
     provider.install
     provider.flush
-    { status: 'installed', version: Array(provider.properties[:ensure]).join(", ") }
+    { status: 'installed', version: Array(provider.properties[:ensure]).join(', ') }
   else
-    { status: 'present', version: Array(provider.properties[:ensure]).join(", ") }
+    { status: 'present', version: Array(provider.properties[:ensure]).join(', ') }
   end
 end
 
@@ -18,17 +18,15 @@ def status(provider, _version)
   version = Array(provider.properties[:ensure])
   if !([:absent, :purged] & version).empty?
     { status: 'absent', version: version }
-  else
-    if provider.respond_to?(:latest)
-      latest = provider.latest
-      if !version.include?(latest)
-        { status: 'out of date', version: version.join(", "), latest: latest }
-      else
-        { status: 'up to date', version: version.join(", ") }
-      end
+  elsif provider.respond_to?(:latest)
+    latest = provider.latest
+    if !version.include?(latest)
+      { status: 'out of date', version: version.join(', '), latest: latest }
     else
-      { status: 'unknown', version: version.join(", ") }
+      { status: 'up to date', version: version.join(', ') }
     end
+  else
+    { status: 'unknown', version: version.join(', ') }
   end
 end
 
@@ -47,7 +45,7 @@ def upgrade(provider, version)
   provider.resource[:ensure] = version unless version.nil?
   provider.update
   provider.flush
-  { old_version: old_version.join(", "), version: Array(provider.properties[:ensure]).join(", ") }
+  { old_version: old_version.join(', '), version: Array(provider.properties[:ensure]).join(', ') }
 end
 
 params = JSON.parse(STDIN.read)

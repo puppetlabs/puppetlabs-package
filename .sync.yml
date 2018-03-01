@@ -45,4 +45,5 @@ Gemfile:
 
 Rakefile:
   requires:
+    - puppet-lint/tasks/puppet-lint
     - puppet_blacksmith/rake_tasks
