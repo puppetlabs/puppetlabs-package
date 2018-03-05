@@ -1,3 +1,13 @@
+## Release 0.2.0
+Updates the module to be compatible with PDK 1.4.1, adds beaker task helper and relevant functionality.
+
+### Added
+- Beaker_task_helper added.
+- Rubygems path for Beaker Task Helper.
+
+### Changed
+- Module converted using version 1.4.1 of the PDK.
+
 ## Release 0.1.5
 
 ### Changed
