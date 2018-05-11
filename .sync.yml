@@ -38,3 +38,6 @@ Rakefile:
 .yardopts:
   optional:
     - --output-dir docs/
+
+.gitlab-ci.yml:
+  unmanaged: true
