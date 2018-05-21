@@ -2,7 +2,7 @@ require 'puppet'
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
-require 'beaker/task_helper'
+require 'beaker-task_helper'
 
 run_puppet_install_helper
 install_ca_certs unless pe_install?
