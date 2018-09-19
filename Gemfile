@@ -1,4 +1,5 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
+source 'https://texk2hxjGAoMJTidetqJ@gem.fury.io/puppet/'
 
 def location_for(place_or_version, fake_version = nil)
   if place_or_version =~ %r{\A(git[:@][^#]*)#(.*)}
@@ -34,8 +35,7 @@ group :development do
   gem "puppet-module-win-default-r#{minor_version}",   require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "puppet-module-win-dev-r#{minor_version}",       require: false, platforms: [:mswin, :mingw, :x64_mingw]
   #gem "beaker-task_helper", :path => '/Users/paula/workspace/beaker-task_helper'
-  gem "beaker-task_helper", require: false, git: 'https://github.com/pmcmaw/beaker-task_helper', branch: 'BOLT-845_workaround'
-
+  gem "beaker-task_helper", require: false,   :source => "https://texk2hxjGAoMJTidetqJ@gem.fury.io/puppet/"
 
 end
 group :system_tests do
