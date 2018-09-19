@@ -34,9 +34,8 @@ group :development do
   gem "puppet-module-win-default-r#{minor_version}",   require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "puppet-module-win-dev-r#{minor_version}",       require: false, platforms: [:mswin, :mingw, :x64_mingw]
 #  gem "beaker-task_helper", :path => '/Users/paula/workspace/beaker-task_helper'
-  gem 'beaker-task_helper', :github => 'pmcmaw/beaker-task_helper', :branch => 'BOLT-845_workaround'
-
-
+#  gem 'beaker-task_helper', :github => 'pmcmaw/beaker-task_helper', :branch => 'BOLT-845_workaround'
+  gem "beaker-task_helper", require: false, git: 'https://github.com/pmcmaw/beaker-task_helper', ref: '7686974c1f16c8524837ab449e0c2b1400fca774'
 
 end
 group :system_tests do
