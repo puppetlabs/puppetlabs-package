@@ -1,7 +1,7 @@
 {
   "name": "puppetlabs-package",
   "version": "0.2.0",
-  "author": "puppet",
+  "author": "puppetlabs",
   "summary": "Tasks that manipulate a package",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-package",
