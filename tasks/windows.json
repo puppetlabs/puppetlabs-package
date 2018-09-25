@@ -1,17 +1,17 @@
 {
-  "description": "Manage and inspect the state of packages (without a puppet agent)",
+  "description": "Manage the state of packages (without a puppet agent)",
   "input_method": "powershell",
   "parameters": {
     "action": {
-      "description": "The operation (install, status, uninstall and upgrade) to perform on the package",
+      "description": "The action to be applied to the package: install, uninstall, and upgrade.",
       "type": "Enum[install, uninstall, upgrade]"
     },
     "name": {
-      "description": "The name of the package to be manipulated",
+      "description": "The name of the package to manage.",
       "type": "String[1]"
     },
     "version": {
-      "description": "Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider. For example, to install the bash package from the rpm bash-4.1.2-29.el6.x86_64.rpm, use the string '4.1.2-29.el6'.",
+      "description": "The version, and if applicable, the release value of the package. A version number range or a semver pattern are not permitted. For example, to install the bash-4.1.2-29.el6.x86_64.rpm package, enter 4.1.2-29.el6.",
       "type": "Optional[String[1]]"
     }
   }
