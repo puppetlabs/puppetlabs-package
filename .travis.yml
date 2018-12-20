@@ -27,7 +27,7 @@ matrix:
       dist: trusty
       env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=docker/centos-7 BEAKER_TESTMODE=apply
       rvm: 2.5.1
-      script: bundle exec rake beaker
+      script: bundle exec rake task_acceptance
       services: docker
       sudo: required
     -
@@ -35,19 +35,13 @@ matrix:
       dist: trusty
       env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=docker/ubuntu-14.04 BEAKER_TESTMODE=apply
       rvm: 2.5.1
-      script: bundle exec rake beaker
+      script: bundle exec rake task_acceptance
       services: docker
       sudo: required
     -
       env: CHECK="syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop"
     -
       env: CHECK=parallel_spec
-    -
-      env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
-      rvm: 2.4.4
-    -
-      env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec RUBYGEMS_VERSION=2.7.8 BUNDLER_VERSION=1.17.3
-      rvm: 2.1.9
 branches:
   only:
     - master
