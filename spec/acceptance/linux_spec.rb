@@ -15,8 +15,11 @@ describe 'linux package task', unless: fact('osfamily') == 'windows' do
     run_task('package::linux', 'default', params, config: config, inventory: inventory)
   end
 
+  redhat_six = fact('os.name') == 'RedHat' && fact('os.release.major') == '6'
+  windows = fact('osfamily') == 'windows'
+
   describe 'install action' do
-    it 'install rsyslog' do
+    it 'install rsyslog', unless: redhat_six || windows do
       apply_manifest_on(default, "package { 'rsyslog': ensure => absent, }")
       result = run('action' => 'install', 'name' => 'rsyslog')
       expect(result[0]['status']).to eq('success')
@@ -24,7 +27,7 @@ describe 'linux package task', unless: fact('osfamily') == 'windows' do
     end
   end
 
-  describe 'uninstall action' do
+  describe 'uninstall action', unless: redhat_six || windows do
     it 'uninstall rsyslog' do
       apply_manifest_on(default, "package { 'rsyslog': ensure => present, }")
       result = run('action' => 'uninstall', 'name' => 'rsyslog')

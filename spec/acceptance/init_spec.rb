@@ -16,6 +16,7 @@ describe 'package task' do
   end
 
   operating_system_fact = fact('operatingsystem')
+  redhat_six = fact('os.name') == 'RedHat' && fact('os.release.major') == '6'
 
   describe 'install' do
     before(:all) do
@@ -29,7 +30,7 @@ describe 'package task' do
       expect(result[0]['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
 
-    it 'returns the version of pry', unless: (operating_system_fact == 'windows') do
+    it 'returns the version of pry', unless: (operating_system_fact == 'windows') || redhat_six do
       result = run('action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['status']).to eq('up to date')
@@ -40,7 +41,7 @@ describe 'package task' do
   describe 'install without puppet' do
     let(:inventory) { hosts_to_inventory }
 
-    it 'installs rsyslog', unless: (operating_system_fact == 'windows') do
+    it 'installs rsyslog', unless: (operating_system_fact == 'windows') || redhat_six do
       result = run('action' => 'install', 'name' => 'rsyslog')
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['status']).to match(%r{install})
