@@ -5,9 +5,15 @@
     - set: docker/ubuntu-14.04
   docker_defaults:
     bundler_args: ""
+    script: bundle exec rake task_acceptance
   secure: ""
   branches:
     - release
+  remove_includes:
+    - env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
+      rvm: 2.4.4
+    - env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec RUBYGEMS_VERSION=2.7.8
+      rvm: 2.1.9
 
 Gemfile:
   optional:
@@ -25,6 +31,8 @@ Gemfile:
           - mswin
           - mingw
           - x64_mingw
+      - gem: 'bolt'
+        version: '~> 1.4'
 
 Rakefile:
   requires:
