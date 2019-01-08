@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [0.4.0](https://github.com/puppetlabs/puppetlabs-package/tree/0.4.0) (2019-01-07)
+## [0.4.1](https://github.com/puppetlabs/puppetlabs-package/tree/0.4.1) (2019-01-08)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/0.4.0...0.4.1)
+
+### Fixed
+
+- \(MODULES-8425\) Move to GEM\_BOLT pattern [\#100](https://github.com/puppetlabs/puppetlabs-package/pull/100) ([donoghuc](https://github.com/donoghuc))
+
+## [0.4.0](https://github.com/puppetlabs/puppetlabs-package/tree/0.4.0) (2019-01-08)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/0.3.0...0.4.0)
 
