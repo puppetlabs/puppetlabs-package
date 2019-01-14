@@ -7,6 +7,8 @@
     bundler_args: ""
     script: bundle exec rake task_acceptance
   secure: ""
+  global_env:
+    - BEAKER_PUPPET_COLLECTION=puppet6 PUPPET_GEM_VERSION="~> 6.0" GEM_BOLT=true
   branches:
     - release
   remove_includes:
@@ -31,12 +33,15 @@ Gemfile:
           - mswin
           - mingw
           - x64_mingw
-      - gem: 'bolt'
-        version: '~> 1.4'
+      - gem: bolt
+        version: '~> 1.3'
+        condition: ENV['GEM_BOLT']
 
 Rakefile:
   requires:
     - puppet-lint/tasks/puppet-lint
+  extras:
+    - 'task :task_acceptance => [:spec_prep, :beaker]'
 
 .yardopts:
   optional:
