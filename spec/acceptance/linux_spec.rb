@@ -22,7 +22,7 @@ describe 'linux package task', unless: os[:family] == 'windows' do
       apply_manifest_on(default, "package { 'rsyslog': ensure => present, }")
       result = task_run('package::linux', '', '', '', 'action' => 'uninstall', 'name' => 'rsyslog')
       expect(result[0]['status']).to eq('success')
-      expect(result[0]['result']['status']).to match(%r{uninstall})
+      expect(result[0]['result']['status']).to match(%r{deinstall ok|uninstalled})
     end
   end
 
@@ -31,7 +31,7 @@ describe 'linux package task', unless: os[:family] == 'windows' do
       apply_manifest_on(default, 'package { "httpd": ensure => "present", }')
       result = task_run('package::linux', '', '', '', 'action' => 'upgrade', 'name' => 'httpd')
       expect(result[0]['status']).to eq('success')
-      expect(result[0]['result']['status']).to match(%r{upgrade})
+      expect(result[0]['result']['status']).to match(%r{install})
     end
   end
 end
