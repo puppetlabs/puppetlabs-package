@@ -1,4 +1,7 @@
 ---
+.gitlab-ci.yml:
+  unmanaged: true
+
 .travis.yml:
   docker_sets:
     - set: docker/centos-7
@@ -17,6 +20,10 @@
       rvm: 2.4.4
     - env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec RUBYGEMS_VERSION=2.7.8
       rvm: 2.1.9
+
+.yardopts:
+  optional:
+    - --output-dir docs/
 
 Gemfile:
   optional:
@@ -52,9 +59,6 @@ Rakefile:
       beaker_task.enhance(beaker_task.prerequisite_tasks << spec_prep)
     end
 
-.yardopts:
-  optional:
-    - --output-dir docs/
-
-.gitlab-ci.yml:
-  unmanaged: true
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+  coverage_report: true
