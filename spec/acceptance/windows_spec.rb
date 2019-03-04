@@ -1,7 +1,5 @@
 # run a test task
 require 'spec_helper_acceptance'
-require 'beaker-task_helper/inventory'
-require 'bolt_spec/run'
 
 describe 'windows package task', if: fact('osfamily') == 'windows' do
   include Beaker::TaskHelper::Inventory
