@@ -23,7 +23,7 @@ end
 
 def changelog_future_release
   return unless Rake.application.top_level_tasks.include? "changelog"
-  returnVal = JSON.load(File.read('metadata.json'))['version']
+  returnVal = "v%s" % JSON.load(File.read('metadata.json'))['version']
   raise "unable to find the future_release (version) in metadata.json" if returnVal.nil?
   puts "GitHubChangelogGenerator future_release:#{returnVal}"
   returnVal
@@ -83,3 +83,4 @@ if beaker_task_exists && spec_prep_task_exists
   spec_prep =  Rake::Task['spec_prep']
   beaker_task.enhance(beaker_task.prerequisite_tasks << spec_prep)
 end
+
