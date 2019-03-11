@@ -85,11 +85,17 @@ case "$available_manager" in
 
     [[ $action == "status" ]] || "yum" "$action" "$name" "${options[@]}" >/dev/null || fail
 
+    # yum install <pkg> and rpm -q <pkg> may produce different results because one package may provide another
+    # For example, 'vim' can be installed because the 'vim-enhanced' package provides 'vim'
+    # So, find out the exact package to get the status for
+    #TODO: can this return multiple results?
+    package="$(rpm -q --whatprovides "$name")"
+
     # Use --queryformat to make a json object with status and version
     # yum is ok with including the version in the package name
     # yum returns non-zero if the package isn't installed
-     cmd_status="$(rpm -q --queryformat '\{ "status": "installed", "version": "%{VERSION}" \}' "$name")" || {
-        cmd_status='{ "status": "uninstalled" }'
-     }
-     success "$cmd_status"
+    cmd_status="$(rpm -q --queryformat '\{ "status": "installed", "version": "%{VERSION}" \}' "$package")" || {
+       cmd_status='{ "status": "uninstalled" }'
+    }
+    success "$cmd_status"
 esac
