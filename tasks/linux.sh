@@ -94,8 +94,8 @@ case "$available_manager" in
     # Use --queryformat to make a json object with status and version
     # yum is ok with including the version in the package name
     # yum returns non-zero if the package isn't installed
-    cmd_status="$(rpm -q --queryformat '\{ "status": "installed", "version": "%{VERSION}" \}' "$package")" || {
-       cmd_status='{ "status": "uninstalled" }'
+    cmd_status="$(rpm -q --queryformat '\{ "status": "success", "package_status": "installed", "version": "%{VERSION}" \}' "$package")" || {
+       cmd_status='{ "status": "success", "package_status": "uninstalled" }'
     }
     success "$cmd_status"
 esac
