@@ -1,17 +1,9 @@
 # run a test task
 require 'spec_helper_acceptance'
 
-describe 'windows package task', if: fact('osfamily') == 'windows' do
+describe 'windows package task', if: os[:family] == 'windows' do
   include Beaker::TaskHelper::Inventory
   include BoltSpec::Run
-
-  let(:module_path) { RSpec.configuration.module_path }
-  let(:config) { { 'modulepath' => module_path } }
-  let(:inventory) { hosts_to_inventory }
-
-  def run(params)
-    run_task('package::windows', 'default', params, config: config, inventory: inventory)
-  end
 
   package_to_use = 'notepadplusplus.install'
   before(:all) do
@@ -22,7 +14,7 @@ describe 'windows package task', if: fact('osfamily') == 'windows' do
   describe 'install action' do
     it "install #{package_to_use}" do
       apply_manifest_on(default, "package { \"#{package_to_use}\": ensure => absent, }")
-      result = run('action' => 'install', 'name' => package_to_use)
+      result = task_run('package::windows','','','','action' => 'install', 'name' => package_to_use)
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['action']).to match(%r{install})
     end
@@ -31,7 +23,7 @@ describe 'windows package task', if: fact('osfamily') == 'windows' do
   describe 'uninstall action' do
     it "uninstall #{package_to_use}" do
       apply_manifest_on(default, "package { \"#{package_to_use}\": ensure => present, }")
-      result = run('action' => 'uninstall', 'name' => package_to_use)
+      result = task_run('package::windows','','','','action' => 'uninstall', 'name' => package_to_use)
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['action']).to match(%r{uninstall})
     end
@@ -39,13 +31,13 @@ describe 'windows package task', if: fact('osfamily') == 'windows' do
 
   describe 'install specific' do
     it 'upgrade notepad++ to a specific version' do
-      result = run('action' => 'upgrade', 'name' => package_to_use, 'version' => '7.5.5')
+      result = task_run('package::windows','','','','action' => 'upgrade', 'name' => package_to_use, 'version' => '7.5.5')
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['action']).to match(%r{upgrade})
     end
 
     it 'upgrade notepad++' do
-      result = run('action' => 'upgrade', 'name' => package_to_use)
+      result = task_run('package::windows','','','','action' => 'upgrade', 'name' => package_to_use)
       expect(result[0]['status']).to eq('success')
       expect(result[0]['result']['action']).to match(%r{upgrade})
     end
