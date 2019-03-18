@@ -7,6 +7,9 @@ require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
+include Beaker::TaskHelper::Inventory
+include BoltSpec::Run
+
 run_puppet_install_helper
 configure_type_defaults_on(hosts)
 install_ca_certs
