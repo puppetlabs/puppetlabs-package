@@ -15,5 +15,12 @@
       "description": "The version, and if applicable, the release value of the package. A version number range or a semver pattern are not permitted. For example, to install the bash-4.1.2-29.el6.x86_64.rpm package, enter 4.1.2-29.el6.",
       "type": "Optional[String[1]]"
     }
+  },
+  "extensions": {
+    "discovery": {
+      "friendlyName": "Manage package on Windows",
+      "osFamily": "windows",
+      "type": ["package"]
+    }
   }
 }
