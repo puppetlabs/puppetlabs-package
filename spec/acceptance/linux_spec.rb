@@ -6,7 +6,6 @@ redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 windows = os[:family] == 'windows'
 
 describe 'linux package task', unless: redhat_six || windows do
-
   describe 'install action' do
     it 'installs rsyslog' do
       apply_manifest_on(default, "package { 'rsyslog': ensure => absent, }")
