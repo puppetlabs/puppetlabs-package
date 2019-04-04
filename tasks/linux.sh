@@ -38,7 +38,7 @@ for p in "${package_managers[@]}"; do
 done
 
 [[ $available_manager ]] || {
-  echo '{ "status": "No package managers found", "message": "Must be one of: [apt, yum]" }'
+  echo '{ "status": "error", "message": "No package managers found", "message": "Must be one of: [apt, yum]" }'
   exit 255
 }
 
@@ -66,7 +66,7 @@ case "$available_manager" in
     # Use --showformat to make a json object with status and version
     # ${name%%=*} removes the version in case we installed a specific one
     # This will print nothing to stdout if the package is not installed
-    cmd_status="$(dpkg-query --show --showformat='{ "status":"${Status}", "version":"${Version}" }' ${name%%=*})"
+    cmd_status="$(dpkg-query --show --showformat='{ "status": "success", "package_status":"${Status}", "version":"${Version}" }' ${name%%=*})"
     [[ $cmd_status ]] || cmd_status='{ "status": "uninstalled" }'
     success "$cmd_status"
     ;;
