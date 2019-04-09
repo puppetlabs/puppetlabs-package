@@ -32,7 +32,7 @@ end
 group :system_tests do
   gem "puppet-module-posix-system-r#{minor_version}", require: false, platforms: [:ruby]
   gem "puppet-module-win-system-r#{minor_version}",   require: false, platforms: [:mswin, :mingw, :x64_mingw]
-  gem "bolt", '~> 1.3',                               require: false if ENV['GEM_BOLT']
+  gem "bolt", '~> 1.15',                               require: false if ENV['GEM_BOLT']
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
