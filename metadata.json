@@ -5,9 +5,7 @@
   "summary": "Tasks that manipulate a package",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-package",
-  "dependencies": [
-
-  ],
+  "dependencies": [],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
@@ -61,7 +59,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.1.0 < 7.0.0"
+      "version_requirement": ">= 5.10.0 < 7.0.0"
     }
   ],
   "description": "Tasks that manipulate a package",
