@@ -5,7 +5,9 @@
   "summary": "Tasks that manipulate a package",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-package",
-  "dependencies": [],
+  "dependencies": [
+
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
@@ -63,7 +65,7 @@
     }
   ],
   "description": "Tasks that manipulate a package",
-  "pdk-version": "1.9.0",
-  "template-url": "https://github.com/puppetlabs/pdk-templates.git",
-  "template-ref": "heads/master-0-fde5699"
+  "pdk-version": "1.10.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#master",
+  "template-ref": "heads/master-0-gf778803"
 }
