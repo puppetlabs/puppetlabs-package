@@ -21,16 +21,14 @@ describe 'package task' do
     it 'installs pry', unless: (operating_system_fact == 'windows') do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
-      expect(result['result']['status']).to eq('installed')
-      expect(result.stdout).to match(%r{installed|install ok installed})
+      expect(result['result']['status']).to match(%r{installed|install ok installed})
       expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
 
     it 'returns the version of pry', unless: (operating_system_fact == 'windows') || redhat_six do
       result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
-      expect(result['result']['status']).to eq('up to date')
-      expect(result.stdout).to match(%r{up to date|install ok installed})
+      expect(result['result']['status']).to match(%r{up to date|install ok installed})
       expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
   end
@@ -51,15 +49,13 @@ describe 'package task' do
     it 'uninstalls pry' do
       result = run_bolt_task('package', 'action' => 'uninstall', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
-      expect(result.stdout).to eq('uninstalled')
       expect(result['result']['status']).to eq('uninstalled')
     end
 
     it 'status' do
       result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
-      expect(result.stdout).to match(%r{absent|uninstalled})
-      expect(result['result']['status']).to eq('absent')
+      expect(result['result']['status']).to match(%r{absent|uninstalled})
     end
   end
 
