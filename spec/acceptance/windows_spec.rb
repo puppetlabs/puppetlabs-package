@@ -3,15 +3,7 @@ require 'spec_helper_acceptance'
 
 describe 'windows package task', if: os[:family] == 'windows' do
   package_to_use = 'notepadplusplus.install'
-  target_host = ENV['TARGET_HOST']
   before(:all) do
-    inventory_hash = if target_host != 'localhost'
-                       inventory_hash_from_inventory_file
-                     else
-                       inventory_hash_from_inventory_file('spec/data/inventory.yaml')
-                     end
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
-    write_to_inventory_file(inventory_hash, 'inventory.yaml')
     run_shell('cmd.exe /c puppet module install puppetlabs-chocolatey')
     pp = <<-PUPPETCODE
     include chocolatey

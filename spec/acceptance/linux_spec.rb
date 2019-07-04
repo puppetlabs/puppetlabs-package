@@ -4,20 +4,8 @@ require 'spec_helper_acceptance'
 # Red-Hat 6 is the only platform we cannot reliably perform package actions on
 redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 windows = os[:family] == 'windows'
-target_host = ENV['TARGET_HOST']
 
 describe 'linux package task', unless: redhat_six || windows do
-  before(:all) do
-    inventory_hash = if target_host != 'localhost'
-                       inventory_hash_from_inventory_file
-                     else
-                       inventory_hash_from_inventory_file('spec/data/inventory.yaml')
-                     end
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'ssh_nodes')
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'docker_nodes')
-    write_to_inventory_file(inventory_hash, 'inventory.yaml')
-  end
   describe 'install action' do
     it 'installs rsyslog' do
       apply_manifest("package { 'rsyslog': ensure => absent, }")
