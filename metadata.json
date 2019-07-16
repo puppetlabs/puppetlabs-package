@@ -67,7 +67,7 @@
     }
   ],
   "description": "Tasks that manipulate a package",
-  "pdk-version": "1.11.0",
+  "pdk-version": "1.11.1",
   "template-url": "https://github.com/puppetlabs/pdk-templates#master",
-  "template-ref": "1.11.1-0-g2ff8c24"
+  "template-ref": "heads/master-0-gb096033"
 }
