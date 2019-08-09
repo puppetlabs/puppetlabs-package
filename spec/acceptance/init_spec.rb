@@ -19,12 +19,16 @@ describe 'package task' do
     write_to_inventory_file(inventory_hash, 'inventory.yaml')
   end
 
+  before(:each) do
+    skip "Don't Run on Windows" if operating_system_fact == 'windows'
+  end
+
   describe 'install' do
     before(:all) do
       apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
     end
 
-    it 'installs pry', unless: (operating_system_fact == 'windows') do
+    it 'installs pry' do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to eq('installed')
@@ -32,7 +36,7 @@ describe 'package task' do
       expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
 
-    it 'returns the version of pry', unless: (operating_system_fact == 'windows') || redhat_six do
+    it 'returns the version of pry', unless: redhat_six do
       result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to eq('up to date')
@@ -42,7 +46,7 @@ describe 'package task' do
   end
 
   describe 'install without puppet' do
-    it 'installs rsyslog', unless: (operating_system_fact == 'windows') || redhat_six do
+    it 'installs rsyslog', unless: redhat_six do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'rsyslog')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{install|present})
@@ -57,7 +61,6 @@ describe 'package task' do
     it 'uninstalls pry' do
       result = run_bolt_task('package', 'action' => 'uninstall', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
-      expect(result.stdout).to eq('uninstalled')
       expect(result['result']['status']).to eq('uninstalled')
     end
 

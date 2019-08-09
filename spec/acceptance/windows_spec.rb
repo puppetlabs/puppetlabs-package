@@ -13,7 +13,9 @@ describe 'windows package task', if: os[:family] == 'windows' do
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'local')
     write_to_inventory_file(inventory_hash, 'inventory.yaml')
-    run_shell('cmd.exe /c puppet module install puppetlabs-chocolatey')
+    command_string = 'cmd.exe /c puppet module install puppetlabs-chocolatey'
+    command_string << " --modulepath #{Dir.pwd}/spec/fixtures/modules" if target_host.nil? || target_host == 'localhost'
+    run_shell(command_string)
     pp = <<-PUPPETCODE
     include chocolatey
 PUPPETCODE
@@ -57,7 +59,7 @@ PUPPETCODE
     end
   end
 
-  context 'when puppet-agent feature not available on target' do
+  context 'when puppet-agent feature not available on target', pending: 'FM-8342' do
     it 'status action fails' do
       inventory_hash = inventory_hash_from_inventory_file
       inventory_hash = remove_feature_from_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
