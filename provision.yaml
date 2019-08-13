@@ -1,15 +1,15 @@
 ---
 default:
-  provisioner: docker_exp
+  provisioner: docker
   images: ['waffleimage/centos7']
 waffle_deb:
-  provisioner: docker_exp
+  provisioner: docker
   images: ['waffleimage/debian8', 'waffleimage/debian9', 'waffleimage/ubuntu14.04', 'waffleimage/ubuntu16.04', 'waffleimage/ubuntu18.04']
 waffle_el6:
-  provisioner: docker_exp
+  provisioner: docker
   images: ['waffleimage/centos6', 'waffleimage/scientificlinux6']
 waffle_el7:
-  provisioner: docker_exp
+  provisioner: docker
   images: ['waffleimage/centos7', 'waffleimage/oraclelinux7', 'waffleimage/scientificlinux7']
 release_checks:
   provisioner: vmpooler
