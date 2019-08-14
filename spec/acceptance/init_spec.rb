@@ -4,13 +4,23 @@ require 'spec_helper_acceptance'
 describe 'package task' do
   operating_system_fact = os[:family]
   redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
+  target_host = ENV['TARGET_HOST']
 
   before(:all) do
-    inventory_hash = inventory_hash_from_inventory_file
+    inventory_hash = if target_host != 'localhost'
+                       inventory_hash_from_inventory_file
+                     else
+                       inventory_hash_from_inventory_file('spec/data/inventory.yaml')
+                     end
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'ssh_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'docker_nodes')
+    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'local')
     write_to_inventory_file(inventory_hash, 'inventory.yaml')
+  end
+
+  before(:each) do
+    skip "Don't run on Windows" if operating_system_fact == 'windows'
   end
 
   describe 'install' do
@@ -18,14 +28,14 @@ describe 'package task' do
       apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
     end
 
-    it 'installs pry', unless: (operating_system_fact == 'windows') do
+    it 'installs pry' do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{installed|install ok installed})
       expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
 
-    it 'returns the version of pry', unless: (operating_system_fact == 'windows') || redhat_six do
+    it 'returns the version of pry', unless: redhat_six do
       result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{up to date|install ok installed})
@@ -34,7 +44,7 @@ describe 'package task' do
   end
 
   describe 'install without puppet' do
-    it 'installs rsyslog', unless: (operating_system_fact == 'windows') || redhat_six do
+    it 'installs rsyslog', unless: redhat_six do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'rsyslog')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{install|present})
