@@ -59,10 +59,11 @@ PUPPETCODE
     end
   end
 
-  context 'when puppet-agent feature not available on target', pending: 'FM-8342' do
+  context 'when puppet-agent feature not available on target', if: target_host != 'localhost' && os[:family] == 'windows' do
     it 'status action fails' do
       inventory_hash = inventory_hash_from_inventory_file
       inventory_hash = remove_feature_from_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
+      inventory_hash = remove_feature_from_group(inventory_hash, 'puppet-agent', 'local')
       write_to_inventory_file(inventory_hash, 'inventory.yaml')
       params = { 'action' => 'status', 'name' => package_to_use }
       expect { run_bolt_task('package', params) }.to raise_error(RuntimeError)
