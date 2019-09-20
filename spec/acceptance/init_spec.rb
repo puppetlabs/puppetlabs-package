@@ -4,7 +4,6 @@ require 'spec_helper_acceptance'
 describe 'package task' do
   operating_system_fact = os[:family]
   redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
-  target_host = ENV['TARGET_HOST']
 
   before(:all) do
     inventory_hash = inventory_hash_from_inventory_file
