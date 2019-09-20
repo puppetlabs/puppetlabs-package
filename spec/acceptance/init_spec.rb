@@ -7,11 +7,7 @@ describe 'package task' do
   target_host = ENV['TARGET_HOST']
 
   before(:all) do
-    inventory_hash = if target_host != 'localhost'
-                       inventory_hash_from_inventory_file
-                     else
-                       inventory_hash_from_inventory_file('spec/data/inventory.yaml')
-                     end
+    inventory_hash = inventory_hash_from_inventory_file
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'ssh_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'docker_nodes')
