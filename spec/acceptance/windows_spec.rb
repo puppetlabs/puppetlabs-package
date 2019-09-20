@@ -15,7 +15,7 @@ describe 'windows package task', if: os[:family] == 'windows' do
     pp = <<-PUPPETCODE
     include chocolatey
 PUPPETCODE
-    apply_manifest(pp, expect_failures: true)
+    apply_manifest(pp)
   end
 
   describe 'install action' do
