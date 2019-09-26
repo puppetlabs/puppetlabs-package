@@ -5,8 +5,17 @@ require 'puppet_litmus'
 require 'spec_helper_acceptance_local' if File.file?(File.join(File.dirname(__FILE__), 'spec_helper_acceptance_local.rb'))
 include PuppetLitmus
 
-if ENV['TARGET_HOST'].nil? || ENV['TARGET_HOST'] == 'localhost'
+if targeting_localhost?
   puts 'Running tests against this machine !'
+  if File.exist?('inventory.yaml')
+    inventory_hash = inventory_hash_from_inventory_file
+    unless target_in_inventory?(inventory_hash, 'litmus_localhost')
+      inventory_hash['groups'] = inventory_hash['groups'] | localhost_inventory_hash['groups']
+      write_to_inventory_file(inventory_hash, 'inventory.yaml')
+    end
+  else
+    write_to_inventory_file(localhost_inventory_hash, 'inventory.yaml')
+  end
   if Gem.win_platform?
     set :backend, :cmd
   else
