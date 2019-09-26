@@ -5,11 +5,7 @@ describe 'windows package task', if: os[:family] == 'windows' do
   package_to_use = 'notepadplusplus.install'
   target_host = ENV['TARGET_HOST']
   before(:all) do
-    inventory_hash = if target_host != 'localhost'
-                       inventory_hash_from_inventory_file
-                     else
-                       inventory_hash_from_inventory_file('spec/data/inventory.yaml')
-                     end
+    inventory_hash = inventory_hash_from_inventory_file
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
     inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'local')
     write_to_inventory_file(inventory_hash, 'inventory.yaml')
@@ -19,7 +15,7 @@ describe 'windows package task', if: os[:family] == 'windows' do
     pp = <<-PUPPETCODE
     include chocolatey
 PUPPETCODE
-    apply_manifest(pp, expect_failures: true)
+    apply_manifest(pp)
   end
 
   describe 'install action' do
