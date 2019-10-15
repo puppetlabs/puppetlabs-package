@@ -11,7 +11,7 @@ describe 'windows package task', if: os[:family] == 'windows' do
     pp = <<-PUPPETCODE
     include chocolatey
 PUPPETCODE
-    apply_manifest(pp, expect_failures: true)
+    apply_manifest(pp)
   end
 
   describe 'install action' do
@@ -54,8 +54,8 @@ PUPPETCODE
   context 'when puppet-agent feature not available on target', if: target_host != 'localhost' && os[:family] == 'windows' do
     it 'status action fails' do
       inventory_hash = inventory_hash_from_inventory_file
-      inventory_hash = remove_feature_from_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
-      inventory_hash = remove_feature_from_group(inventory_hash, 'puppet-agent', 'local')
+      inventory_hash = remove_feature_from_node(inventory_hash, 'puppet-agent', target_host)
+      inventory_hash = remove_feature_from_node(inventory_hash, 'puppet-agent', 'local')
       temp_inventory_file = "#{ENV['TARGET_HOST']}.yaml"
       write_to_inventory_file(inventory_hash, temp_inventory_file)
       params = { 'action' => 'status', 'name' => package_to_use }
