@@ -6,13 +6,6 @@ redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 windows = os[:family] == 'windows'
 
 describe 'linux package task', unless: redhat_six || windows do
-  before(:all) do
-    inventory_hash = inventory_hash_from_inventory_file
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'ssh_nodes')
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'winrm_nodes')
-    inventory_hash = add_feature_to_group(inventory_hash, 'puppet-agent', 'local')
-    write_to_inventory_file(inventory_hash, 'inventory.yaml')
-  end
   describe 'install action' do
     it 'installs rsyslog' do
       apply_manifest("package { 'rsyslog': ensure => absent, }")

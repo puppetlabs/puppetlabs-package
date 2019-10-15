@@ -29,7 +29,7 @@ matrix:
       - bundle exec rake 'litmus:install_agent[puppet5]'
       - bundle exec rake litmus:install_module
       script:
-      - bundle exec rake litmus:acceptance:serial
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
       sudo: required
     -

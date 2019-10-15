@@ -13,7 +13,7 @@ team-modules/puppetlabs-package:
     - echo "--- MODULE INSTALLATION ---"
     - bundle exec rake litmus:install_module
     - echo "--- TESTS RUNNING ---"
-    - bundle exec rake litmus:acceptance:serial
+    - bundle exec rake litmus:acceptance:parallel
   AfterBuildSuccess:
     - source /opt/rh/rh-ruby25/enable
     - bundle exec rake litmus:tear_down
