@@ -18,6 +18,7 @@ function ErrorMessage($Action, $Name, $Message)
 {
   Write-Host @"
 {
+  "implementation": "pwsh",
   "status"  : "failure",
   "_error"  : {
     "msg" : "Unable to perform '$Action' on '$Name': $Message",
@@ -25,7 +26,7 @@ function ErrorMessage($Action, $Name, $Message)
     "details" : {}
   }
 }
-"@  
+"@
 }
 
 # Do this outside the initial script parameters in order to control the error message
@@ -66,6 +67,7 @@ try
     {
       Write-Host @"
 {
+  "implementation": "pwsh",
   "status"  : "Installed $Name",
   "version" : ""
 }
@@ -75,6 +77,7 @@ try
     {
       Write-Host @"
 {
+  "implementation": "pwsh",
   "status"  : "Uninstalled $Name"
 }
 "@
@@ -83,6 +86,7 @@ try
     {
       Write-Host @"
 {
+  "implementation": "pwsh",
   "status"      : "Upgraded $Name",
   "old_version" : "",
   "version"     : ""

@@ -12,15 +12,15 @@ apt_status() {
 # Determine if newer package is available to mirror the ruby/puppet implementation
 apt_check_latest() {
   installed="$(apt_status '${Version}')"
-  [[ $installed ]] || success '{ "status": "uninstalled", "version": ""}'
+  [[ $installed ]] || success '{ "implementation": "bash-apt", "status": "uninstalled", "version": ""}'
 
   candidate="$(apt-cache policy "$name" | grep 'Candidate:')"
   candidate="${candidate#*: }"
 
   if [[ $installed != $candidate ]]; then
-    cmd_status="$(apt_status "{ \"status\":\"\${Status}\", \"version\":\"${installed}\", \"latest\":\"${candidate}\" }")"
+    cmd_status="$(apt_status "{  \"implementation\": \"bash-apt\", \"status\":\"\${Status}\", \"version\":\"${installed}\", \"latest\":\"${candidate}\" }")"
   else
-    cmd_status="$(apt_status '{ "status":"${Status}", "version":"${Version}" }')"
+    cmd_status="$(apt_status '{ "implementation\": "bash-apt", "status":"${Status}", "version":"${Version}" }')"
   fi
 
   success "$cmd_status"

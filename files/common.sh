@@ -11,13 +11,13 @@ fail() {
   else
     error_data="{ \"msg\": \"Task error\", \"kind\": \"bash-error\", \"details\": {} }"
   fi
-  echo "{ \"status\": \"failure\", \"_error\": $error_data }"
+  echo "{ \"implementation\": \"bash\", \"status\": \"failure\", \"_error\": $error_data }"
   exit ${2:-1}
 }
 
 validation_error() {
   error_data="{ \"msg\": \""$1"\", \"kind\": \"bash-error\", \"details\": {} }"
-  echo "{ \"status\": \"failure\", \"_error\": $error_data }"
+  echo "{ \"implementation\": \"bash\", \"status\": \"failure\", \"_error\": $error_data }"
   exit 255
 }
 

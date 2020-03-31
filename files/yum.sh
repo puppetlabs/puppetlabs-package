@@ -16,10 +16,10 @@ yum_check_latest() {
   # i.e rpm.x86_64 4.11.3-35.el7
   if [[ $candidate && $installed != ${candidate[1]} ]]; then
     cmd_status="$(yum_status \
-      "{ \"status\": \"installed\", \"version\": \"$installed\", \"latest\": \"${candidate[1]}\" \}")"
+      "{ \"implementation\": \"bash-yum\", \"status\": \"installed\", \"version\": \"$installed\", \"latest\": \"${candidate[1]}\" \}")"
   else
-      cmd_status="$(yum_status '\{ "status": "installed", "version": "%{VERSION}-%{RELEASE}" \}')" || {
-        cmd_status='{ "status": "uninstalled", "version": "" }'
+      cmd_status="$(yum_status '\{ "implementation\": "bash-yum", "status": "installed", "version": "%{VERSION}-%{RELEASE}" \}')" || {
+        cmd_status='{ "implementation": "bash-yum", "status": "uninstalled", "version": "" }'
       }
   fi
 

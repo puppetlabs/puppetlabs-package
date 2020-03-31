@@ -61,6 +61,7 @@ begin
   provider = Puppet::Type.type(:package).new(opts).provider
 
   result = send(action, provider, version)
+  result['implementation'] = 'init.rb'
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
