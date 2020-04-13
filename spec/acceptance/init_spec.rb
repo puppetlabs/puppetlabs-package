@@ -3,7 +3,7 @@ require 'spec_helper_acceptance'
 
 describe 'package task' do
   operating_system_fact = os[:family]
-  #redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
+  # redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 
   before(:each) do
     skip "Don't run on Windows" if operating_system_fact == 'windows'
