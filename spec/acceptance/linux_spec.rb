@@ -2,10 +2,10 @@
 require 'spec_helper_acceptance'
 
 # Red-Hat 6 is the only platform we cannot reliably perform package actions on
-redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
+#redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 windows = os[:family] == 'windows'
 
-describe 'linux package task', unless: redhat_six || windows do
+describe 'linux package task', unless: windows do
   describe 'install action' do
     it 'installs rsyslog' do
       apply_manifest("package { 'rsyslog': ensure => absent, }")

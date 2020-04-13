@@ -3,7 +3,7 @@ require 'spec_helper_acceptance'
 
 describe 'package task' do
   operating_system_fact = os[:family]
-  redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
+  #redhat_six = os[:family] == 'redhat' && os[:release].to_i == 6
 
   before(:each) do
     skip "Don't run on Windows" if operating_system_fact == 'windows'
@@ -21,7 +21,7 @@ describe 'package task' do
       expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
     end
 
-    it 'returns the version of pry', unless: redhat_six do
+    it 'returns the version of pry' do
       result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{up to date|install ok installed})
@@ -30,7 +30,7 @@ describe 'package task' do
   end
 
   describe 'install without puppet' do
-    it 'installs rsyslog', unless: redhat_six do
+    it 'installs rsyslog' do
       result = run_bolt_task('package', 'action' => 'install', 'name' => 'rsyslog')
       expect(result.exit_code).to eq(0)
       expect(result['result']['status']).to match(%r{install|present})
