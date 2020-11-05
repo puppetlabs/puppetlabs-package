@@ -10,22 +10,44 @@ describe 'package task' do
   end
 
   describe 'install' do
-    before(:all) do
-      apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
+    context 'default' do
+      before(:all) do
+        apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
+      end
+
+      it 'installs pry' do
+        result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem')
+        expect(result.exit_code).to eq(0)
+        expect(result['result']['status']).to match(%r{installed|install ok installed})
+        expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
+      end
+
+      it 'returns the version of pry', unless: redhat_six do
+        result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
+        expect(result.exit_code).to eq(0)
+        expect(result['result']['status']).to match(%r{up to date|install ok installed})
+        expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
+      end
     end
 
-    it 'installs pry' do
-      result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem')
-      expect(result.exit_code).to eq(0)
-      expect(result['result']['status']).to match(%r{installed|install ok installed})
-      expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
-    end
+    context 'set version' do
+      before(:all) do
+        apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
+      end
 
-    it 'returns the version of pry', unless: redhat_six do
-      result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
-      expect(result.exit_code).to eq(0)
-      expect(result['result']['status']).to match(%r{up to date|install ok installed})
-      expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
+      it 'installs pry v0.12.0' do
+        result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem', 'version' => '0.12.0')
+        expect(result.exit_code).to eq(0)
+        expect(result['result']['status']).to match(%r{installed|install ok installed})
+        expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
+      end
+
+      it 'returns the correct version of pry', unless: redhat_six do
+        result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
+        expect(result.exit_code).to eq(0)
+        expect(result['result']['status']).to match(%r{out of date})
+        expect(result['result']['version']).to match(%r{0.12.0})
+      end
     end
   end
 
