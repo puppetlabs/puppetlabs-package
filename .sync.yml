@@ -2,7 +2,7 @@
 ".gitlab-ci.yml":
   delete: true
 ".travis.yml":
-  global_env: 
+  global_env:
     - HONEYCOMB_WRITEKEY="7f3c63a70eecc61d635917de46bea4e6",HONEYCOMB_DATASET="litmus tests"
   dist: trusty
   deploy_to_forge:
@@ -39,16 +39,9 @@ appveyor.yml:
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   simplecov: true
 Gemfile:
-  use_litmus: true
   optional:
     ":development":
     - gem: github_changelog_generator
-      git: https://github.com/skywinder/github-changelog-generator
-      ref: 20ee04ba1234e9e83eb2ffb5056e23d641c7a018
-      condition: Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.2.2')
-Rakefile:
-  requires:
-  - puppet_pot_generator/rake_tasks
 spec/spec_helper.rb:
   mock_with: ":rspec"
   coverage_report: true
