@@ -101,8 +101,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- \(SEN-795\) Move extension metadata to init.json [\#119](https://github.com/puppetlabs/puppetlabs-package/pull/119) ([conormurraypuppet](https://github.com/conormurraypuppet))
-- \(SEN-795\) Add discovery extension metadata [\#118](https://github.com/puppetlabs/puppetlabs-package/pull/118) ([conormurraypuppet](https://github.com/conormurraypuppet))
+- \(SEN-795\) Move extension metadata to init.json [\#119](https://github.com/puppetlabs/puppetlabs-package/pull/119) ([conormurray95](https://github.com/conormurray95))
+- \(SEN-795\) Add discovery extension metadata [\#118](https://github.com/puppetlabs/puppetlabs-package/pull/118) ([conormurray95](https://github.com/conormurray95))
 - \(BOLT-1104\) Unify task implementation output [\#117](https://github.com/puppetlabs/puppetlabs-package/pull/117) ([donoghuc](https://github.com/donoghuc))
 
 ### Fixed
