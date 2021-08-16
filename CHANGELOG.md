@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.1.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.1.0) (2021-08-16)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.0.0...v2.1.0)
+
+### Added
+
+- pdksync - \(IAC-1720\) - Add Support for Ubuntu 20.04 [\#263](https://github.com/puppetlabs/puppetlabs-package/pull/263) ([david22swan](https://github.com/david22swan))
+- pdksync - \(IAC-1709\) - Add Support for Debian 11 [\#261](https://github.com/puppetlabs/puppetlabs-package/pull/261) ([david22swan](https://github.com/david22swan))
+- pdksync - \(IAC-1719\) - Add Support for Debian 10 [\#260](https://github.com/puppetlabs/puppetlabs-package/pull/260) ([david22swan](https://github.com/david22swan))
+
 ## [v2.0.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.0.0) (2021-03-01)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v1.4.0...v2.0.0)
@@ -101,8 +111,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- \(SEN-795\) Move extension metadata to init.json [\#119](https://github.com/puppetlabs/puppetlabs-package/pull/119) ([conormurraypuppet](https://github.com/conormurraypuppet))
-- \(SEN-795\) Add discovery extension metadata [\#118](https://github.com/puppetlabs/puppetlabs-package/pull/118) ([conormurraypuppet](https://github.com/conormurraypuppet))
+- \(SEN-795\) Move extension metadata to init.json [\#119](https://github.com/puppetlabs/puppetlabs-package/pull/119) ([conormurray95](https://github.com/conormurray95))
+- \(SEN-795\) Add discovery extension metadata [\#118](https://github.com/puppetlabs/puppetlabs-package/pull/118) ([conormurray95](https://github.com/conormurray95))
 - \(BOLT-1104\) Unify task implementation output [\#117](https://github.com/puppetlabs/puppetlabs-package/pull/117) ([donoghuc](https://github.com/donoghuc))
 
 ### Fixed
