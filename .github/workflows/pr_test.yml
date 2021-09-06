@@ -51,11 +51,16 @@ jobs:
         echo STEP_ID=Setup-Acceptance-Test-Matrix >> $GITHUB_ENV
         echo STEP_START=$(date +%s) >> $GITHUB_ENV
 
+    - name: Run validation steps
+      run: |
+        bundle exec rake validate
+      if: ${{ github.repository_owner == 'puppetlabs' }}
+
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
         if [ '${{ github.repository_owner }}' == 'puppetlabs' ]; then
-          buildevents cmd $TRACE_ID $STEP_ID matrix_from_metadata -- bundle exec matrix_from_metadata_v2
+          buildevents cmd $TRACE_ID $STEP_ID matrix_from_metadata -- bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-18.04", "Windows-2012 R2"]'
         else
           echo  "::set-output name=matrix::{}"
         fi

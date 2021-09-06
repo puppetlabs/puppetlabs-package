@@ -18,7 +18,13 @@ spec/spec_helper.rb:
 
 .github/workflows/nightly.yml:
   unmanaged: false
+  exclude_platforms:
+    - Ubuntu-18.04
+    - Windows-2012 R2
 .github/workflows/pr_test.yml:
+  exclude_platforms:
+    - Ubuntu-18.04
+    - Windows-2012 R2
   unmanaged: false
 .github/workflows/auto_release.yml:
   unmanaged: false
