@@ -14,6 +14,10 @@
       "description": "Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider. For example, to install the bash package from the rpm bash-4.1.2-29.el6.x86_64.rpm, use the string '4.1.2-29.el6'.",
       "type": "Optional[String[1]]"
     },
+     "manager_options": {
+      "description": "options to be sent to the package manager",
+      "type": "Optional[String[1]]"
+    },
     "provider": {
       "description": "The provider to use to manage or inspect the package, defaults to the system package manager. Only used when the 'puppet-agent' feature is available on the target so we can leverage Puppet.",
       "type": "Optional[String[1]]"

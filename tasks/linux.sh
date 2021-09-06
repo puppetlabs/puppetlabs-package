@@ -27,6 +27,9 @@ case "$available_manager" in
   "apt-get")
     # quiet and assume yes
     options+=("-yq")
+  
+
+    [ ! -z "$manager_options" ]  && options+=("$manager_options")
 
     # <package>=<version> is the syntax for installing a specific version in apt
     [[ $version ]] && name="${name}=${version}"
@@ -66,6 +69,8 @@ case "$available_manager" in
     # assume yes
     options+=("-y")
 
+    [ ! -z "$manager_options" ] &&  options+=("$manager_options")
+    
     # yum install <pkg> and rpm -q <pkg> may produce different results because one package may provide another
     # For example, 'vim' can be installed because the 'vim-enhanced' package provides 'vim'
     # So, find out the exact package to get the status for
@@ -119,6 +124,7 @@ case "$available_manager" in
     # Non-interactive and no color
     options+=("-n")
 
+    [ ! -z "$manager_options" ] && options+=("$manager_options")
     # <package>-<version> is the syntax for installing a specific version in zypper
     [[ $version ]] && name="${name}-${version}"
 
