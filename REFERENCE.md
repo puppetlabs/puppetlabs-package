@@ -38,6 +38,12 @@ Data type: `Optional[String[1]]`
 
 Version numbers must match the full version to install, including release if the provider uses a release moniker. Ranges or semver patterns are not accepted except for the gem package provider. For example, to install the bash package from the rpm bash-4.1.2-29.el6.x86_64.rpm, use the string '4.1.2-29.el6'.
 
+##### `manager_options`
+
+Data type: `Optional[String[1]]`
+
+options to be sent to the package manager
+
 ##### `provider`
 
 Data type: `Optional[String[1]]`
@@ -63,6 +69,12 @@ The operation (install, status, uninstall and upgrade) to perform on the package
 Data type: `String[1]`
 
 The name of the package to be manipulated.
+
+##### `manager_options`
+
+Data type: `Optional[String[1]]`
+
+options to be sent to the package manager
 
 ##### `version`
 
