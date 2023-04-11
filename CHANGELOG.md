@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.3.1](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.1) (2023-04-11)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.3.0...v2.3.1)
+
+### Fixed
+
+- pdksync - \(CONT-189\) Remove support for RedHat6 / OracleLinux6 [\#292](https://github.com/puppetlabs/puppetlabs-package/pull/292) ([david22swan](https://github.com/david22swan))
+
 ## [v2.3.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.0) (2022-10-03)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.2.0...v2.3.0)
@@ -28,6 +36,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Fixed
 
+- pdksync - \(CONT-130\) - Dropping Support for Debian 9 [\#289](https://github.com/puppetlabs/puppetlabs-package/pull/289) ([jordanbreen28](https://github.com/jordanbreen28))
 - pdksync - \(GH-iac-334\) Remove Support for Ubuntu 14.04/16.04 [\#277](https://github.com/puppetlabs/puppetlabs-package/pull/277) ([david22swan](https://github.com/david22swan))
 - pdksync - \(IAC-1787\) Remove Support for CentOS 6 [\#273](https://github.com/puppetlabs/puppetlabs-package/pull/273) ([david22swan](https://github.com/david22swan))
 - pdksync - \(IAC-1598\) - Remove Support for Debian 8 [\#268](https://github.com/puppetlabs/puppetlabs-package/pull/268) ([david22swan](https://github.com/david22swan))
@@ -51,6 +60,10 @@ All notable changes to this project will be documented in this file. The format 
 - pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [\#235](https://github.com/puppetlabs/puppetlabs-package/pull/235) ([carabasdaniel](https://github.com/carabasdaniel))
 
+### Added
+
+- \(MODULES-10842\) - Allow version to be set when installing via init task [\#217](https://github.com/puppetlabs/puppetlabs-package/pull/217) ([david22swan](https://github.com/david22swan))
+
 ### Fixed
 
 - Fix package task for yum when passing version [\#237](https://github.com/puppetlabs/puppetlabs-package/pull/237) ([cliveweir](https://github.com/cliveweir))
@@ -62,7 +75,6 @@ All notable changes to this project will be documented in this file. The format 
 ### Added
 
 - pdksync - \(feat\) - Add support for Puppet 7 [\#224](https://github.com/puppetlabs/puppetlabs-package/pull/224) ([daianamezdrea](https://github.com/daianamezdrea))
-- \(MODULES-10842\) - Allow version to be set when installing via init task [\#217](https://github.com/puppetlabs/puppetlabs-package/pull/217) ([david22swan](https://github.com/david22swan))
 
 ### Fixed
 
@@ -143,7 +155,6 @@ All notable changes to this project will be documented in this file. The format 
 
 - \(SEN-795\) Move extension metadata to init.json [\#119](https://github.com/puppetlabs/puppetlabs-package/pull/119) ([conormurray95](https://github.com/conormurray95))
 - \(SEN-795\) Add discovery extension metadata [\#118](https://github.com/puppetlabs/puppetlabs-package/pull/118) ([conormurray95](https://github.com/conormurray95))
-- \(BOLT-1104\) Unify task implementation output [\#117](https://github.com/puppetlabs/puppetlabs-package/pull/117) ([donoghuc](https://github.com/donoghuc))
 
 ### Fixed
 
@@ -152,6 +163,10 @@ All notable changes to this project will be documented in this file. The format 
 ## [0.4.1](https://github.com/puppetlabs/puppetlabs-package/tree/0.4.1) (2019-01-09)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/0.4.0...0.4.1)
+
+### Added
+
+- \(BOLT-1104\) Unify task implementation output [\#117](https://github.com/puppetlabs/puppetlabs-package/pull/117) ([donoghuc](https://github.com/donoghuc))
 
 ### Fixed
 
