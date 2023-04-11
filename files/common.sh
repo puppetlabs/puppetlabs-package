@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # TODO: helper task?
 
 # Exit with an error message and error code, defaulting to 1

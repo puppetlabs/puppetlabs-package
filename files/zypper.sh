@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # zypper supports xml output for parsing, but we're not guaranteed to have a parser
 zypper_status() {
   installed_version

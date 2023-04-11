@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # $1 = string literal to feed to rpm -q. include json formatting
 # Use --queryformat to make a json object with status and version
 # yum returns non-zero if the package isn't installed
