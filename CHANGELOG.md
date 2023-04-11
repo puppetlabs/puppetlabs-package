@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.3.1](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.1) (2023-04-11)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.3.0...v2.3.1)
+
+### Fixed
+
+- pdksync - \(CONT-189\) Remove support for RedHat6 / OracleLinux6 [\#292](https://github.com/puppetlabs/puppetlabs-package/pull/292) ([david22swan](https://github.com/david22swan))
+- pdksync - \(CONT-130\) - Dropping Support for Debian 9 [\#289](https://github.com/puppetlabs/puppetlabs-package/pull/289) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v2.3.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.0) (2022-10-03)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.2.0...v2.3.0)
