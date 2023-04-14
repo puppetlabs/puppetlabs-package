@@ -7,7 +7,7 @@ for f in "$PT__installdir"/package/files/*sh; do
   source "$f"
 done
 
-package_managers=("apt-get" "yum" "zypper")
+package_managers=("apt-get" "pkg" "yum" "zypper")
 options=()
 
 for p in "${package_managers[@]}"; do
@@ -18,7 +18,7 @@ for p in "${package_managers[@]}"; do
 done
 
 [[ $available_manager ]] || {
-  validation_error "No package managers found: Must be one of: [apt, yum, zypper]"
+  validation_error "No package managers found: Must be one of: [apt, pkg, yum, zypper]"
 }
 
 # For any package manager, check if the action is "status". If so, only run a status command
@@ -62,6 +62,42 @@ case "$available_manager" in
         # For Ruby compatability, this command uses a different output format
         cmd_status="$(apt_status "{ \"old_version\": ${old_version}, \"version\": \"\${Version}\" }")"
         success "$cmd_status"
+    esac
+    ;;
+
+  "pkg")
+    # quiet and assume yes
+    options+=("-yq")
+
+    [ ! -z "$manager_options" ]  && options+=("$manager_options")
+
+    # For Ruby compatability, 'status' and 'install' will check if the package is upgradable
+    case "$action" in
+      "status")
+        pkg_check_latest
+        ;;
+
+    "install")
+        pkg install "${options[@]}" "$name" >/dev/null || fail
+        pkg_check_latest
+        ;;
+
+      # uninstall: do not print any version information
+      "uninstall")
+        pkg remove "${options[@]}" "$name" >/dev/null || fail
+        success '{ "status": "uninstalled" }'
+        ;;
+
+      "upgrade")
+        action="install"
+        # Get the currently installed version to compare with the upgraded version
+        old_version="$(pkg_status '%v')"
+
+        pkg upgrade "${options[@]}" "$name" >/dev/null || fail
+        # For Ruby compatability, this command uses a different output format
+        cmd_status="$(pkg_status "{ \"old_version\": ${old_version}, \"version\": \"%v\" }")"
+        success "$cmd_status"
+        ;;
     esac
     ;;
 
