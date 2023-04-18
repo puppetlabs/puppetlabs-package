@@ -36,6 +36,11 @@ fi
 _tmp="$(mktemp)"
 exec 2>>"$_tmp"
 
+# Make sure command output is predictible and does not depend on the user locale
+export LANG=${LANG:-$LC_ALL}
+unset LC_ALL
+export LC_MESSAGES=C
+
 # Use indirection to munge PT_ environment variables
 # e.g. "$PT_version" becomes "$version"
 for v in ${!PT_*}; do
