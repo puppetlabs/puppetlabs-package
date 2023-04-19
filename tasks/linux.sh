@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # example: bolt task run package::linux action=install name=rsyslog
 

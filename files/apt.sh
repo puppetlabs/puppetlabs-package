@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # $1 = string literal to feed to dpkg-query. include json formatting
 # No error check here because querying the status of uninstalled packages will return non-zero
 # Use --showformat to make a json object with status and version
