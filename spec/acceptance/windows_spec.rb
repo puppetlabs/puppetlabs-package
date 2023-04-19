@@ -12,7 +12,7 @@ describe 'windows package task', if: os[:family] == 'windows' do
     run_shell(command_string)
     pp = <<-PUPPETCODE
     include chocolatey
-PUPPETCODE
+    PUPPETCODE
     apply_manifest(pp)
   end
 

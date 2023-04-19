@@ -8,9 +8,9 @@
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-Layout/ClosingHeredocIndentation:
-  Exclude:
-    - 'spec/acceptance/windows_spec.rb'
+# Layout/ClosingHeredocIndentation:
+#   Exclude:
+#     - 'spec/acceptance/windows_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
