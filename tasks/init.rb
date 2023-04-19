@@ -51,7 +51,7 @@ def upgrade(provider, version)
   { old_version: old_version.join(', '), version: Array(provider.properties[:ensure]).join(', ') }
 end
 
-params = JSON.parse(STDIN.read)
+params = JSON.parse($stdin.read)
 name = params['name']
 provider = params['provider']
 action = params['action']
