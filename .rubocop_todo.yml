@@ -37,17 +37,6 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Max: 5
 
-# # Offense count: 1
-# # This cop supports unsafe autocorrection (--autocorrect-all).
-# Style/GlobalStdStream:
-#   Exclude:
-#     - 'tasks/init.rb'
-
-# Offense count: 1
-Style/MixinUsage:
-  Exclude:
-    - 'spec/spec_helper.rb'
-
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 Style/NegatedIfElseCondition:
