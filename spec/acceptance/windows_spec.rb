@@ -5,14 +5,14 @@ require 'spec_helper_acceptance'
 
 describe 'windows package task', if: os[:family] == 'windows' do
   package_to_use = 'notepadplusplus.install'
-  target_host = ENV['TARGET_HOST']
+  target_host = ENV.fetch('TARGET_HOST', nil)
   before(:all) do
     command_string = 'cmd.exe /c puppet module install puppetlabs-chocolatey'
     command_string += " --modulepath #{Dir.pwd}/spec/fixtures/modules" if target_host.nil? || target_host == 'localhost'
     run_shell(command_string)
     pp = <<-PUPPETCODE
     include chocolatey
-PUPPETCODE
+    PUPPETCODE
     apply_manifest(pp)
   end
 

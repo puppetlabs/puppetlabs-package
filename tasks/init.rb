@@ -7,13 +7,13 @@ Puppet.initialize_settings
 require 'json'
 
 def install(provider, version)
-  if !([:absent, :purged] & Array(provider.properties[:ensure])).empty?
+  if ([:absent, :purged] & Array(provider.properties[:ensure])).empty?
+    { status: 'present', version: Array(provider.properties[:ensure]).join(', ') }
+  else
     provider.resource[:ensure] = version unless version.nil?
     provider.install
     provider.flush
     { status: 'installed', version: Array(provider.properties[:ensure]).join(', ') }
-  else
-    { status: 'present', version: Array(provider.properties[:ensure]).join(', ') }
   end
 end
 
@@ -23,10 +23,10 @@ def status(provider, _version)
     { status: 'absent', version: version }
   elsif provider.respond_to?(:latest)
     latest = provider.latest
-    if !version.include?(latest)
-      { status: 'out of date', version: version.join(', '), latest: latest }
-    else
+    if version.include?(latest)
       { status: 'up to date', version: version.join(', ') }
+    else
+      { status: 'out of date', version: version.join(', '), latest: latest }
     end
   else
     { status: 'unknown', version: version.join(', ') }
@@ -34,12 +34,12 @@ def status(provider, _version)
 end
 
 def uninstall(provider, _version)
-  if !([:absent, :purged] & Array(provider.properties[:ensure])).empty?
-    { status: 'absent' }
-  else
+  if ([:absent, :purged] & Array(provider.properties[:ensure])).empty?
     provider.uninstall
     provider.flush
     { status: 'uninstalled' }
+  else
+    { status: 'absent' }
   end
 end
 
@@ -51,7 +51,7 @@ def upgrade(provider, version)
   { old_version: old_version.join(', '), version: Array(provider.properties[:ensure]).join(', ') }
 end
 
-params = JSON.parse(STDIN.read)
+params = JSON.parse($stdin.read)
 name = params['name']
 provider = params['provider']
 action = params['action']
