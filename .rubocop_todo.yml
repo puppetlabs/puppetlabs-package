@@ -36,9 +36,3 @@ RSpec/ExampleLength:
 # Offense count: 19
 RSpec/MultipleExpectations:
   Max: 5
-
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/NegatedIfElseCondition:
-  Exclude:
-    - 'tasks/init.rb'
