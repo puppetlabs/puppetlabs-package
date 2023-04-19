@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.0.0](https://github.com/puppetlabs/puppetlabs-package/tree/v3.0.0) (2023-04-19)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.4.0...v3.0.0)
+
+### Changed
+
+- \(CONT-791\) - Add Puppet 8/Drop Puppet 6 [\#307](https://github.com/puppetlabs/puppetlabs-package/pull/307) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v2.4.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.4.0) (2023-04-19)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.3.0...v2.4.0)
@@ -35,10 +43,6 @@ All notable changes to this project will be documented in this file. The format 
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.1.0...v2.2.0)
 
-### Changed
-
-- pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
-
 ### Added
 
 - pdksync - \(FM-8922\) - Add Support for Windows 2022 [\#275](https://github.com/puppetlabs/puppetlabs-package/pull/275) ([david22swan](https://github.com/david22swan))
@@ -68,6 +72,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 
+- pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [\#235](https://github.com/puppetlabs/puppetlabs-package/pull/235) ([carabasdaniel](https://github.com/carabasdaniel))
 
 ### Fixed
@@ -133,7 +138,6 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- \(BOLT-1525\) Zypper implementation [\#143](https://github.com/puppetlabs/puppetlabs-package/pull/143) ([m0dular](https://github.com/m0dular))
 - \(FM-8225\) Convert to litmus testing [\#134](https://github.com/puppetlabs/puppetlabs-package/pull/134) ([sheenaajay](https://github.com/sheenaajay))
 
 ## [v0.6.0](https://github.com/puppetlabs/puppetlabs-package/tree/v0.6.0) (2019-06-12)
@@ -146,6 +150,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- \(BOLT-1525\) Zypper implementation [\#143](https://github.com/puppetlabs/puppetlabs-package/pull/143) ([m0dular](https://github.com/m0dular))
 - \(FM-8156\) Add Windows Server 2019 support [\#129](https://github.com/puppetlabs/puppetlabs-package/pull/129) ([eimlav](https://github.com/eimlav))
 - \(FM-8044\) Add Redhat8 support [\#128](https://github.com/puppetlabs/puppetlabs-package/pull/128) ([sheenaajay](https://github.com/sheenaajay))
 - \(Bolt-1104\) - Add linux package task uninstall [\#126](https://github.com/puppetlabs/puppetlabs-package/pull/126) ([m0dular](https://github.com/m0dular))
