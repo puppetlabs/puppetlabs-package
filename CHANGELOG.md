@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.4.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.4.0) (2023-04-19)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.3.0...v2.4.0)
+
+### Added
+
+- Add Compatibility with FreeBSD [\#306](https://github.com/puppetlabs/puppetlabs-package/pull/306) ([smortex](https://github.com/smortex))
+- Improve package status consistency on Debian [\#303](https://github.com/puppetlabs/puppetlabs-package/pull/303) ([smortex](https://github.com/smortex))
+
+### Fixed
+
+- Fix shebangs [\#305](https://github.com/puppetlabs/puppetlabs-package/pull/305) ([smortex](https://github.com/smortex))
+- Unset user-defined locale variables [\#304](https://github.com/puppetlabs/puppetlabs-package/pull/304) ([smortex](https://github.com/smortex))
+- pdksync - \(CONT-189\) Remove support for RedHat6 / OracleLinux6 [\#292](https://github.com/puppetlabs/puppetlabs-package/pull/292) ([david22swan](https://github.com/david22swan))
+- pdksync - \(CONT-130\) - Dropping Support for Debian 9 [\#289](https://github.com/puppetlabs/puppetlabs-package/pull/289) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v2.3.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.0) (2022-10-03)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.2.0...v2.3.0)
@@ -18,6 +34,10 @@ All notable changes to this project will be documented in this file. The format 
 ## [v2.2.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.2.0) (2022-05-30)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.1.0...v2.2.0)
+
+### Changed
+
+- pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 
 ### Added
 
@@ -48,7 +68,6 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 
-- pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [\#235](https://github.com/puppetlabs/puppetlabs-package/pull/235) ([carabasdaniel](https://github.com/carabasdaniel))
 
 ### Fixed
