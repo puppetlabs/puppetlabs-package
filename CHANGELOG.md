@@ -2,13 +2,30 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.3.1](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.1) (2023-04-19)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.3.0...v2.3.1)
+
+### Added
+
+- pdksync - \(GH-cat-11\) Certify Support for Ubuntu 22.04 [\#286](https://github.com/puppetlabs/puppetlabs-package/pull/286) ([david22swan](https://github.com/david22swan))
+
+### Fixed
+
+- pdksync - \(CONT-189\) Remove support for RedHat6 / OracleLinux6 [\#292](https://github.com/puppetlabs/puppetlabs-package/pull/292) ([david22swan](https://github.com/david22swan))
+- pdksync - \(CONT-130\) - Dropping Support for Debian 9 [\#289](https://github.com/puppetlabs/puppetlabs-package/pull/289) ([jordanbreen28](https://github.com/jordanbreen28))
+
+### UNCATEGORIZED PRS; LABEL THEM ON GITHUB
+
+- Unset user-defined locale variables [\#304](https://github.com/puppetlabs/puppetlabs-package/pull/304) ([smortex](https://github.com/smortex))
+- Improve package status consistency on Debian [\#303](https://github.com/puppetlabs/puppetlabs-package/pull/303) ([smortex](https://github.com/smortex))
+
 ## [v2.3.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.3.0) (2022-10-03)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.2.0...v2.3.0)
 
 ### Added
 
-- pdksync - \(GH-cat-11\) Certify Support for Ubuntu 22.04 [\#286](https://github.com/puppetlabs/puppetlabs-package/pull/286) ([david22swan](https://github.com/david22swan))
 - pdksync - \(GH-cat-12\) Add Support for Redhat 9 [\#285](https://github.com/puppetlabs/puppetlabs-package/pull/285) ([david22swan](https://github.com/david22swan))
 
 ### Fixed
@@ -40,7 +57,6 @@ All notable changes to this project will be documented in this file. The format 
 
 - pdksync - \(IAC-1720\) - Add Support for Ubuntu 20.04 [\#263](https://github.com/puppetlabs/puppetlabs-package/pull/263) ([david22swan](https://github.com/david22swan))
 - pdksync - \(IAC-1709\) - Add Support for Debian 11 [\#261](https://github.com/puppetlabs/puppetlabs-package/pull/261) ([david22swan](https://github.com/david22swan))
-- pdksync - \(IAC-1719\) - Add Support for Debian 10 [\#260](https://github.com/puppetlabs/puppetlabs-package/pull/260) ([david22swan](https://github.com/david22swan))
 
 ## [v2.0.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.0.0) (2021-03-01)
 
@@ -50,6 +66,10 @@ All notable changes to this project will be documented in this file. The format 
 
 - pdksync - Remove RHEL 5 family support [\#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [\#235](https://github.com/puppetlabs/puppetlabs-package/pull/235) ([carabasdaniel](https://github.com/carabasdaniel))
+
+### Added
+
+- pdksync - \(IAC-1719\) - Add Support for Debian 10 [\#260](https://github.com/puppetlabs/puppetlabs-package/pull/260) ([david22swan](https://github.com/david22swan))
 
 ### Fixed
 
