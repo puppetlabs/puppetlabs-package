@@ -8,13 +8,6 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 13
 
-# Offense count: 2
-# Configuration parameters: Prefixes, AllowedPatterns.
-# Prefixes: when, with, without
-RSpec/ContextWording:
-  Exclude:
-    - 'spec/acceptance/init_spec.rb'
-
 # Offense count: 3
 # Configuration parameters: IgnoredMetadata.
 RSpec/DescribeClass:
