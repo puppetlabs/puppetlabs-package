@@ -11,7 +11,7 @@ describe 'package task' do
   end
 
   describe 'install' do
-    context 'when default' do
+    context 'with default' do
       before(:all) do
         apply_manifest('package { "pry": ensure => absent, provider => "puppet_gem", }')
       end
