@@ -8,7 +8,7 @@ yum_status() {
 # Determine if newer package is available to mirror the ruby/puppet implementation
 yum_check_latest() {
   installed="$(yum_status "%{VERSION}-%{RELEASE}" "$provided_package")" || success '{ "status": "uninstalled", "version": "" }'
-  candidate=($(yum check-update --quiet "${name}"))
+  candidate=($(yum check-update --quiet "${name}" | grep "^${name}"))
 
   # format of check-update is <package_name> <release>
   # i.e rpm.x86_64 4.11.3-35.el7
