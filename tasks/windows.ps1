@@ -45,7 +45,7 @@ function Invoke-PackageAction($Package, $Action, $Version)
 
   if ($Action -eq "status")
   {
-    $commandLine += " search $Package -y --exact --lo --limit-output"
+    $commandLine += " list $Package --limit-output"
   } else {
     $commandLine += " $Action $Package -y"
 
