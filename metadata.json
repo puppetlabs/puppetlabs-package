@@ -5,6 +5,7 @@
   "summary": "Tasks that manipulate a package",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-package",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-package/issues",
   "dependencies": [
 
   ],
