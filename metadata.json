@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-package",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "puppetlabs",
   "summary": "Tasks that manipulate a package",
   "license": "Apache-2.0",
