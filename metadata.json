@@ -15,6 +15,12 @@
       "operatingsystemrelease": [
         "8"
       ]
+    },
+    {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8"
+      ]
     }
   ],
   "requirements": [
