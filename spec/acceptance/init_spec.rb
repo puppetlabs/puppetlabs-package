@@ -24,7 +24,7 @@ describe 'package task' do
       end
 
       it 'returns the version of pry' do
-        result = run_bolt_task('package', 'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem')
+        result = run_bolt_task('package', {'action' => 'status', 'name' => 'pry', 'provider' => 'puppet_gem'}, {'trace' => true})
         expect(result.exit_code).to eq(0)
         expect(result['result']['status']).to match(%r{up to date|installed})
         expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
@@ -37,7 +37,7 @@ describe 'package task' do
       end
 
       it 'installs pry v0.12.0' do
-        result = run_bolt_task('package', 'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem', 'version' => '0.12.0')
+        result = run_bolt_task('package', {'action' => 'install', 'name' => 'pry', 'provider' => 'puppet_gem', 'version' => '0.12.0'}, {'trace' => true})
         expect(result.exit_code).to eq(0)
         expect(result['result']['status']).to eq('installed')
         expect(result['result']['version']).to match(%r{\d+\.\d+\.\d+})
