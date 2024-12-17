@@ -5,19 +5,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.1.0](https://github.com/puppetlabs/puppetlabs-package/tree/v3.1.0) - 2024-12-17
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v3.0.1...v3.1.0)
+
+### Added
+
+- (CAT-2125) Add Ubuntu 24.04 support [#341](https://github.com/puppetlabs/puppetlabs-package/pull/341) ([shubhamshinde360](https://github.com/shubhamshinde360))
+- (CAT-2100) Add Debian 12 support [#340](https://github.com/puppetlabs/puppetlabs-package/pull/340) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
+### Fixed
+
+- (CAT-2158) Upgrade rexml to address CVE-2024-49761 [#342](https://github.com/puppetlabs/puppetlabs-package/pull/342) ([amitkarsale](https://github.com/amitkarsale))
+
 ## [v3.0.1](https://github.com/puppetlabs/puppetlabs-package/tree/v3.0.1) - 2024-03-01
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v3.0.0...v3.0.1)
 
 ### Fixed
 
-- Remove unwanted lines from yum output [#316](https://github.com/puppetlabs/puppetlabs-package/pull/316) ([ememilyly](https://github.com/ememilyly))
+- Remove unwanted lines from yum output [#316](https://github.com/puppetlabs/puppetlabs-package/pull/316) ([mlemily](https://github.com/mlemily))
 
 ## [v3.0.0](https://github.com/puppetlabs/puppetlabs-package/tree/v3.0.0) - 2023-04-19
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v2.4.0...v3.0.0)
 
 ### Changed
+
 - (CONT-791) - Add Puppet 8/Drop Puppet 6 [#307](https://github.com/puppetlabs/puppetlabs-package/pull/307) ([jordanbreen28](https://github.com/jordanbreen28))
 
 ## [v2.4.0](https://github.com/puppetlabs/puppetlabs-package/tree/v2.4.0) - 2023-04-19
@@ -81,6 +95,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v1.4.0...v2.0.0)
 
 ### Changed
+
 - pdksync - Remove RHEL 5 family support [#240](https://github.com/puppetlabs/puppetlabs-package/pull/240) ([sanfrancrisko](https://github.com/sanfrancrisko))
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [#235](https://github.com/puppetlabs/puppetlabs-package/pull/235) ([carabasdaniel](https://github.com/carabasdaniel))
 
@@ -134,6 +149,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v0.7.0...v1.0.0)
 
 ### Changed
+
 - pdksync - FM-8499 remove ubuntu 14 support [#164](https://github.com/puppetlabs/puppetlabs-package/pull/164) ([lionce](https://github.com/lionce))
 
 ### Added
@@ -154,6 +170,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v0.5.0...v0.6.0)
 
 ### Changed
+
 - pdksync - (MODULES-8444) - Raise lower Puppet bound [#123](https://github.com/puppetlabs/puppetlabs-package/pull/123) ([david22swan](https://github.com/david22swan))
 
 ### Added
