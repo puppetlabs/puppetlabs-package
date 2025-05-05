@@ -109,8 +109,9 @@ case "$available_manager" in
     
     # yum install <pkg> and rpm -q <pkg> may produce different results because one package may provide another
     # For example, 'vim' can be installed because the 'vim-enhanced' package provides 'vim'
-    # So, find out the exact package to get the status for
-    provided_package="$(rpm -q --whatprovides "$name")" || provided_package=
+    # So, find out the exact package to get the status for. Ensure the results are de-duplicated
+    # for packages which may match the whatprovides query more than once.
+    provided_package="$(rpm -q --whatprovides "$name" | sort -u)" || provided_package=
 
     # <package>-<version> is the syntax for installing a specific version in yum
     [[ $version ]] && full_name="${name}-${version}" || full_name="${name}"
