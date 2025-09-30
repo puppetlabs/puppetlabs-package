@@ -20,13 +20,13 @@ end
 def status(provider, _version)
   version = Array(provider.properties[:ensure])
   if !([:absent, :purged] & version).empty?
-    { status: 'absent', version: version }
+    { status: 'absent', version: }
   elsif provider.respond_to?(:latest)
     latest = provider.latest
     if version.include?(latest)
       { status: 'up to date', version: version.join(', ') }
     else
-      { status: 'out of date', version: version.join(', '), latest: latest }
+      { status: 'out of date', version: version.join(', '), latest: }
     end
   else
     { status: 'unknown', version: version.join(', ') }
@@ -57,7 +57,7 @@ provider = params['provider']
 action = params['action']
 version = params['version']
 
-opts = { name: name }
+opts = { name: }
 opts[:provider] = provider if provider
 
 begin
