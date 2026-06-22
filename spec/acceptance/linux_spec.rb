@@ -23,7 +23,7 @@ describe 'linux package task', unless: windows do
         expect(result['result']['_error']).to include('msg')
         expect(result['result']['_error']).to include('kind' => 'bash-error')
         expect(result['result']['_error']).to include('details')
-      elsif result['result']['status'] == 'success' || result['result']['status'] == 'uninstalled'
+      elsif ['success', 'uninstalled'].include?(result['result']['status'])
         expect(result['result']).to include('status' => 'uninstalled')
       else
         raise "Unexpected result: #{result}"

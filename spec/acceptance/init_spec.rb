@@ -78,7 +78,7 @@ describe 'package task' do
     end
   end
 
-  describe 'upgrade', if: (operating_system_fact == 'CentOS' && os[:release].to_i == 7) do
+  describe 'upgrade', if: operating_system_fact == 'CentOS' && os[:release].to_i == 7 do
     before(:all) do
       apply_manifest('package { "httpd": ensure => "present", }')
     end
