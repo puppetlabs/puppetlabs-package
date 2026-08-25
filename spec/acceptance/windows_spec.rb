@@ -10,9 +10,14 @@ describe 'windows package task', if: os[:family] == 'windows' do
     command_string = 'cmd.exe /c puppet module install puppetlabs-chocolatey'
     command_string += " --modulepath #{Dir.pwd}/spec/fixtures/modules" if target_host.nil? || target_host == 'localhost'
     run_shell(command_string)
+    # The module's default download URL is the unversioned 'latest' endpoint,
+    # which has returned HTTP 504 since 2026-08-16. Versioned paths still serve
+    # fine, so pin one. Drop the pin once the latest endpoint recovers.
+    # See MODULES-11927.
     pp = <<-PUPPETCODE
     class { 'chocolatey':
-      log_output => true,
+      chocolatey_download_url => 'https://community.chocolatey.org/api/v2/package/chocolatey/2.7.4',
+      log_output              => true,
     }
     PUPPETCODE
     apply_manifest(pp, catch_failures: true)
