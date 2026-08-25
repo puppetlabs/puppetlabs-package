@@ -11,9 +11,11 @@ describe 'windows package task', if: os[:family] == 'windows' do
     command_string += " --modulepath #{Dir.pwd}/spec/fixtures/modules" if target_host.nil? || target_host == 'localhost'
     run_shell(command_string)
     pp = <<-PUPPETCODE
-    include chocolatey
+    class { 'chocolatey':
+      log_output => true,
+    }
     PUPPETCODE
-    apply_manifest(pp)
+    apply_manifest(pp, catch_failures: true)
   end
 
   describe 'install action' do
