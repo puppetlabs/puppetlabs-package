@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v4.0.0](https://github.com/puppetlabs/puppetlabs-package/tree/v4.0.0) - 2026-08-31
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v3.1.0...v4.0.0)
+
+### Changed
+
+- (CAT-2384) Prepare module for Puppetcore / Drop Support for Puppet 7 [#346](https://github.com/puppetlabs/puppetlabs-package/pull/346) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
+### Fixed
+
+- (MODULES-11927) Surface chocolatey bootstrap failures in Windows acceptance [#354](https://github.com/puppetlabs/puppetlabs-package/pull/354) ([imaqsood](https://github.com/imaqsood))
+
+### Other
+
+- (MODULES-11730) Add Puppet 9 support [#353](https://github.com/puppetlabs/puppetlabs-package/pull/353) ([imaqsood](https://github.com/imaqsood))
+- (CAT-2296) Update github runner image to ubuntu-24.04 [#345](https://github.com/puppetlabs/puppetlabs-package/pull/345) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
 ## [v3.1.0](https://github.com/puppetlabs/puppetlabs-package/tree/v3.1.0) - 2024-12-17
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-package/compare/v3.0.1...v3.1.0)
