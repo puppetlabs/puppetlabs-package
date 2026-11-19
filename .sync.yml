@@ -22,7 +22,21 @@ spec/spec_helper.rb:
 .github/workflows/nightly.yml:
   unmanaged: false
   cron: '35 1 * * *'
+  # acceptance flags set by hand (Puppet 9 platform excludes) (MODULES-11997 pdk update)
+  acceptance_flags:
+  - "--nightly"
+  - "--collection-platform-exclude 9:redhat-7"
+  - "--collection-platform-exclude 9:centos-7"
+  - "--collection-platform-exclude 9:oraclelinux-7"
+  - "--collection-platform-exclude 9:debian-10"
+  - "--collection-platform-exclude 9:ubuntu-18.04"
+  - "--collection-platform-exclude 9:ubuntu-20.04"
+  - "--collection-platform-exclude 9:windows-2012r2-x86"
 .github/workflows/release.yml:
   unmanaged: false
 .travis.yml:
   delete: true
+.gitignore:
+  # paths the module added by hand (MODULES-11997 pdk update)
+  paths:
+  - ".gsd"
